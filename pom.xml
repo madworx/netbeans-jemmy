@@ -4,38 +4,32 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>madworx</groupId>
+  <groupId>se.madworx</groupId>
   <artifactId>netbeans-jemmy</artifactId>
   <version>2.7.5.5</version>
-
-  <name>netbeans-jemmy</name>
+  <packaging>jar</packaging>
+  
+  <name>madworx Netbeans Jemmy library fork</name>
   <url>https://github.com/madworx/netbeans-jemmy</url>
 
+  <scm>
+    <url>https://github.com/madworx/netbeans-jemmy</url>
+    <connection>scm:git:https://github.com/madworx/netbeans-jemmy/</connection>
+  </scm>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.4</maven.compiler.source>
     <maven.compiler.target>1.4</maven.compiler.target>
   </properties>
 
-  <!--
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  -->
-  
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
@@ -43,10 +37,6 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.20.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
