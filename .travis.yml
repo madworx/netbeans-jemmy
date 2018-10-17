@@ -8,3 +8,8 @@ cache:
 jdk:
   - openjdk8
 
+build:
+  - mvn package
+  - mvn javadoc:jar
+  - mvn source:jar
+
