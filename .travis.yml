@@ -8,8 +8,12 @@ cache:
 jdk:
   - openjdk8
 
-build:
-  - mvn package
-  - mvn javadoc:jar
-  - mvn source:jar
-
+jobs:
+  include:
+    - script: mvn test -B
+    - stage: Generate main artifact
+      script: mvn package
+    - stage: Generate Javadoc artifact
+      script: mvn javadoc:jar
+    - stage: Generate Source code artifact
+      script: mvn source:jar
