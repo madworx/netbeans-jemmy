@@ -21,7 +21,6 @@ deploy:
     - target/netbeans-jemmy-*.jar
   skip_cleanup: true
   on:
-    repo: madworx/netbeans-jemmy
-    tags: false
+    branch: add-travis-ci
 
 

@@ -16,7 +16,11 @@
     <url>https://github.com/madworx/netbeans-jemmy</url>
     <connection>scm:git:https://github.com/madworx/netbeans-jemmy/</connection>
   </scm>
-  
+
+  <!--                                                             -->
+  <!-- For some reason, the  Robot Framework Swinglibrary fails if -->
+  <!-- Jemmy is compiled with a target > 1.4.                      -->
+  <!--                                                             -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.4</maven.compiler.source>
