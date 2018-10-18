@@ -10,8 +10,6 @@ jdk:
 
 script:
   - mvn package
-  - mvn javadoc:jar
-  - mvn source:jar
 
 deploy:
   provider: releases

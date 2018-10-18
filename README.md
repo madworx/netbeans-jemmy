@@ -1,5 +1,7 @@
 # netbeans-jemmy
 
+[![Build Status](https://travis-ci.org/madworx/netbeans-jemmy.svg?branch=master)](https://travis-ci.org/madworx/netbeans-jemmy)
+
 Fork of the Netbeans Jemmy library, sourced from
 
   http://central.maven.org/maven2/org/netbeans/jemmy/2.2.7.5/jemmy-2.2.7.5-sources.jar
