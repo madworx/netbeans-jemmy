@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  
   <groupId>se.madworx</groupId>
   <artifactId>netbeans-jemmy</artifactId>
-  <version>2.7.5.5</version>
+  <version>${git.tag}</version>
   <packaging>jar</packaging>
   
   <name>madworx Netbeans Jemmy library fork</name>
   <url>https://github.com/madworx/netbeans-jemmy</url>
-
+  
   <scm>
     <url>https://github.com/madworx/netbeans-jemmy</url>
     <connection>scm:git:https://github.com/madworx/netbeans-jemmy/</connection>
   </scm>
   
+  <!--                                                             -->
+  <!-- For some reason, the  Robot Framework Swinglibrary fails if -->
+  <!-- Jemmy is compiled with a target > 1.4.                      -->
+  <!--                                                             -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.4</maven.compiler.source>
@@ -24,20 +28,8 @@
   </properties>
 
   <build>
-    <pluginManagement>
+    <finalName>${project.artifactId}-${git.commit.id.describe-short}</finalName>
       <plugins>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.7.0</version>
-        </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
@@ -76,15 +68,30 @@
             </execution>
           </executions>
         </plugin>
+
         <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <version>2.2.5</version>
+          <executions>
+            <execution>
+              <id>get-the-git-infos</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <verbose>true</verbose>
+            <failOnNoGitDirectory>true</failOnNoGitDirectory>
+            <injectAllReactorProjects>true</injectAllReactorProjects>
+            <dateFormat>yyyyMMdd-HHmmss</dateFormat>
+            <generateGitPropertiesFile>false</generateGitPropertiesFile>
+          </configuration>
+          </plugin>
+
+
       </plugins>
-    </pluginManagement>
   </build>
 </project>

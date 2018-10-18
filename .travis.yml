@@ -1,0 +1,26 @@
+language: java
+
+cache:
+  directories:
+  - "$HOME/.cache"
+  - "$HOME/.m2"
+
+jdk:
+  - openjdk8
+
+script:
+  - mvn package
+  - mvn javadoc:jar
+  - mvn source:jar
+
+deploy:
+  provider: releases
+  api_key:
+    secure: LraED+H538N+nqaRlRuLN5ECy7LAm2SC37IbZOTt02UlW8XyN6MBcQcuajK4MXbS2CxcstYc0sIZjSO5XMBfD0qsvNS7mPadNv9KARzpGmuDpboheElrum27B2oZSPbaPDIY2GhdUU77pRQTWkly9x74IeBW7TpacpQ8u5QQ8rH8k9trcQXW7BeY72KuPbsjmwXoGsepVyPeAVwMzLYNfHMt4nzApx4/8XJMFqQ7GUzG2FSKeWz9ZMvzqdZ79+yt2sHCjLLg1uSHzNhZ3B+mX/1innY3qSpx7rQurhDSm9FujTTQiy8i7/jsoqMXXVVvs8YECCs/NfFFsfT/HzZRjMdozPTdK7Z29KgLVpXnNmTVqGaLajk/fapLvwbUsm4o/DLmqDh8dhOBuqMQ92mLcbt6GJ66mZDNDyn7W/S2wb5KKwHFqK00FA5toTkSyVXhlWtvA2vaApguD2A3ndKCELs0W0XErAgUZO1WaikvuG6KE+PJ7KKH8IAMKCpAiCCIhPqXlMb7bFA4jXliuXcVRaXX11t1aDtIWKWZO4findZh9rmMvciQcA9E/ek7cu7lvqJF4NQ9WNt2psDbauBJF/5jk0ykbHouyIR1Gm5h1eN0niUr4DQ0LBUGXe2sTJ16FBdqipD16UDvBk8GuOW47VdQHz7/p7UFIjevRIXZTFE=
+  file_glob: true
+  file: 
+    - target/netbeans-jemmy-*.jar
+  skip_cleanup: true
+  on:
+    repo: madworx/netbeans-jemmy
+    tags: true
