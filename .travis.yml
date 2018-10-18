@@ -19,6 +19,8 @@ deploy:
   file_glob: true
   file: 
     - target/netbeans-jemmy-*.jar
+    - target/netbeans-jemmy-*-javadoc.jar
+    - target/netbeans-jemmy-*-source.jar
   skip_cleanup: true
   on:
     branch: add-travis-ci
