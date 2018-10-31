@@ -6,7 +6,7 @@
   
   <groupId>se.madworx</groupId>
   <artifactId>netbeans-jemmy</artifactId>
-  <version>x</version>
+  <version>${git.tag}</version>
   <packaging>jar</packaging>
   
   <name>madworx Netbeans Jemmy library fork</name>
