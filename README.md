@@ -1,6 +1,6 @@
 # netbeans-jemmy
 
-[![Build Status](https://travis-ci.org/madworx/netbeans-jemmy.svg?branch=master)](https://travis-ci.org/madworx/netbeans-jemmy)
+[![Build Status](https://travis-ci.org/madworx/netbeans-jemmy.svg?branch=master)](https://travis-ci.org/madworx/netbeans-jemmy)[![](https://jitpack.io/v/madworx/netbeans-jemmy.svg)](https://jitpack.io/#madworx/netbeans-jemmy)
 
 Fork of the Netbeans Jemmy library, sourced from
 
