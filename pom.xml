@@ -6,7 +6,7 @@
   
   <groupId>se.madworx</groupId>
   <artifactId>netbeans-jemmy</artifactId>
-  <version>v2.2.7.5mwx5</version>
+  <version>v2.2.7.5mwx6</version>
   <packaging>jar</packaging>
   
   <name>madworx Netbeans Jemmy library fork</name>
