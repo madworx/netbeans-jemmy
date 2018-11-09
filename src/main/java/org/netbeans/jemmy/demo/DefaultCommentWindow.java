@@ -246,6 +246,7 @@ public class DefaultCommentWindow extends JDialog implements CommentWindow {
 		}
 	    } catch(InterruptedException e) {
 		e.printStackTrace();
+      Thread.currentThread().interrupt();
 	    } catch(TimeoutExpiredException e) {
 		e.printStackTrace();
 	    }

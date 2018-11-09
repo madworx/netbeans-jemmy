@@ -903,7 +903,7 @@ public class EventDispatcher implements Outputable, Timeoutable {
          wt.waitAction(component);
       } catch(InterruptedException e) {
          output.printStackTrace(e);
-         throw new AssertionError("EventDriver::waitMouserOver() was interrupted and doesn't handle this properly.");
+         Thread.currentThread().interrupt();
       } catch(TimeoutExpiredException e) {
          throw(new NoComponentUnderMouseException());
       }

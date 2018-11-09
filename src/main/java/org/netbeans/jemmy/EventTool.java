@@ -295,6 +295,7 @@ public class EventTool implements Timeoutable, Outputable {
 	    waiter.waitAction(null);
 	} catch(InterruptedException e) {
 	    output.printStackTrace(e);
+       Thread.currentThread().interrupt();
 	}
     }
 
