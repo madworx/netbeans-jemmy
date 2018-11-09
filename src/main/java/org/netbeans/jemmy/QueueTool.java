@@ -259,6 +259,7 @@ public class QueueTool implements Outputable, Timeoutable {
             throw(e);
 	} catch(InterruptedException e) {
 	    output.printStackTrace(e);
+       Thread.currentThread().interrupt();
 	}
     }
 
@@ -291,6 +292,7 @@ public class QueueTool implements Outputable, Timeoutable {
             throw(e);
 	} catch(InterruptedException e) {
 	    output.printStackTrace(e);
+       Thread.currentThread().interrupt();
 	}
     }
 
@@ -471,6 +473,7 @@ public class QueueTool implements Outputable, Timeoutable {
 	    lockWaiter.waitAction(null);
 	} catch(InterruptedException e) {
 	    output.printStackTrace(e);
+       Thread.currentThread().interrupt();
 	}
     }
 
@@ -638,6 +641,7 @@ public class QueueTool implements Outputable, Timeoutable {
 		}
 	    } catch(InterruptedException e) {
 		output.printStackTrace(e);
+      Thread.currentThread().interrupt();
 	    } catch(InvocationTargetException e) {
 		output.printStackTrace(e);
 	    }
