@@ -64,8 +64,10 @@ public class AppleMenuDriver extends RobotDriver implements MenuDriver {
                 throw(new TimeoutExpiredException("AppleMenuDriver: can not find an appropriate menu!"));
             }
         }
+
         if ( menuObject == null )
            throw new AssertionError("menuObject was null");
+        
         for(int depth = 1; depth < chooser.getDepth(); depth++) {
             // TODO - wait for menu item
             int elementIndex = getDesiredElementIndex(menuObject, chooser, depth);
