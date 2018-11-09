@@ -193,8 +193,8 @@ public class DefaultCharBindingMap implements CharBindingMap {
     }
 
     private static class CharKey {
-        public int key;
-        public int modifiers;
+        protected int key;
+        protected int modifiers;
         public CharKey(int key, int modifiers) {
             this.key = key;
             this.modifiers = modifiers;
