@@ -1,5 +1,9 @@
 language: java
 
+addons:
+  sonarcloud:
+    organization: "madworx"
+
 cache:
   directories:
   - "$HOME/.cache"
@@ -11,6 +15,7 @@ jdk:
 script:
   - mvn package
   - mvn -Dmaven.test.skip=true -Dgpg.skip=true -DcreateChecksum=true install
+  - sonar-scanner
 
 deploy:
   provider: releases
