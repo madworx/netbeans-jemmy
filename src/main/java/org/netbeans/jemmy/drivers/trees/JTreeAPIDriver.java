@@ -30,6 +30,7 @@ import javax.swing.text.JTextComponent;
 
 import javax.swing.tree.TreePath;
 
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Timeout;
 
 import org.netbeans.jemmy.drivers.DriverManager;
@@ -77,7 +78,7 @@ public class JTreeAPIDriver extends LightSupportiveDriver implements TreeDriver 
 
     public void editItem(ComponentOperator oper, int index, Object newValue, Timeout waitEditorTime) {
 	JTextComponentOperator textoper = startEditingAndReturnEditor(oper, index, waitEditorTime);
-	TextDriver text = DriverManager.getTextDriver(JTextComponentOperator.class);
+	TextDriver text = DriverManager.getTextDriver(Java5Compat.init(JTextComponentOperator.class));
 	text.clearText(textoper);
 	text.typeText(textoper, newValue.toString(), 0);
 	((JTreeOperator)oper).stopEditing();

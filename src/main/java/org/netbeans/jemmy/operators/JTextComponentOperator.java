@@ -28,6 +28,7 @@ import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ActionProducer;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyInputException;
 import org.netbeans.jemmy.JemmyProperties;
@@ -1195,13 +1196,13 @@ public class JTextComponentOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JTextComponentFinder(ComponentChooser sf) {
-            super(JTextComponent.class, sf);
+            super(Java5Compat.init(JTextComponent.class), sf);
 	}
         /**
          * Constructs JTextComponentFinder.
          */
 	public JTextComponentFinder() {
-            super(JTextComponent.class);
+            super(Java5Compat.init(JTextComponent.class));
 	}
     }
 }

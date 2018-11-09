@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.FrameWaiter;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.TimeoutExpiredException;
@@ -424,13 +425,13 @@ public class FrameOperator extends WindowOperator implements Outputable {
          * @param sf other searching criteria.
          */
 	public FrameFinder(ComponentChooser sf) {
-            super(Frame.class, sf);
+            super(Java5Compat.init(Frame.class), sf);
 	}
         /**
          * Constructs FrameFinder.
          */
 	public FrameFinder() {
-            super(Frame.class);
+            super(Java5Compat.init(Frame.class));
 	}
     }
 

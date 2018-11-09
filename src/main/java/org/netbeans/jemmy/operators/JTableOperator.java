@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.QueueTool;
@@ -2068,13 +2069,13 @@ implements Outputable, Timeoutable {
          * @param sf other searching criteria.
          */
 	public JTableFinder(ComponentChooser sf) {
-            super(JTable.class, sf);
+            super(Java5Compat.init(JTable.class), sf);
 	}
         /**
          * Constructs JTableFinder.
          */
 	public JTableFinder() {
-            super(JTable.class);
+            super(Java5Compat.init(JTable.class));
 	}
     }
 

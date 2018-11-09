@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.TimeoutExpiredException;
@@ -404,13 +405,13 @@ public class JEditorPaneOperator extends JTextComponentOperator {
          * @param sf other searching criteria.
          */
 	public JEditorPaneFinder(ComponentChooser sf) {
-            super(JEditorPane.class, sf);
+            super(Java5Compat.init(JEditorPane.class), sf);
 	}
         /**
          * Constructs JEditorPaneFinder.
          */
 	public JEditorPaneFinder() {
-            super(JEditorPane.class);
+            super(Java5Compat.init(JEditorPane.class));
 	}
     }
 }

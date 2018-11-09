@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -521,13 +522,13 @@ public class ScrollbarOperator extends ComponentOperator
          * @param sf other searching criteria.
          */
 	public ScrollbarFinder(ComponentChooser sf) {
-            super(Scrollbar.class, sf);
+            super(Java5Compat.init(Scrollbar.class), sf);
 	}
         /**
          * Constructs ScrollbarFinder.
          */
 	public ScrollbarFinder() {
-            super(Scrollbar.class);
+            super(Java5Compat.init(Scrollbar.class));
 	}
     }
 }

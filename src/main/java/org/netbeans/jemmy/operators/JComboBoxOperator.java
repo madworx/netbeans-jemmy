@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -1035,13 +1036,13 @@ implements Timeoutable, Outputable {
          * @param sf other searching criteria.
          */
 	public JComboBoxFinder(ComponentChooser sf) {
-            super(JComboBox.class, sf);
+            super(Java5Compat.init(JComboBox.class), sf);
 	}
         /**
          * Constructs JComboBoxFinder.
          */
 	public JComboBoxFinder() {
-            super(JComboBox.class);
+            super(Java5Compat.init(JComboBox.class));
 	}
     }
 

@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -480,13 +481,13 @@ public class JLabelOperator extends JComponentOperator {
          * @param sf other searching criteria.
          */
 	public JLabelFinder(ComponentChooser sf) {
-            super(JLabel.class, sf);
+            super(Java5Compat.init(JLabel.class), sf);
 	}
         /**
          * Constructs JLabelFinder.
          */
 	public JLabelFinder() {
-            super(JLabel.class);
+            super(Java5Compat.init(JLabel.class));
 	}
     }
 }

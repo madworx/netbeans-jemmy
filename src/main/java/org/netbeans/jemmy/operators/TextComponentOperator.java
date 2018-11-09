@@ -28,6 +28,7 @@ import org.netbeans.jemmy.ActionProducer;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -611,13 +612,13 @@ public class TextComponentOperator extends ComponentOperator
          * @param sf other searching criteria.
          */
 	public TextComponentFinder(ComponentChooser sf) {
-            super(TextComponent.class, sf);
+            super(Java5Compat.init(TextComponent.class), sf);
 	}
         /**
          * Constructs TextComponentFinder.
          */
 	public TextComponentFinder() {
-            super(TextComponent.class);
+            super(Java5Compat.init(TextComponent.class));
 	}
     }
 }

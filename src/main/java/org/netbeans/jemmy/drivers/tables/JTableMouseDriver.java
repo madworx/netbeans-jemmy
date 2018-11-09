@@ -32,6 +32,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.text.JTextComponent;
 
 import org.netbeans.jemmy.QueueTool;
+import org.netbeans.jemmy.Java5Compat;
 
 import org.netbeans.jemmy.drivers.DriverManager;
 import org.netbeans.jemmy.drivers.LightSupportiveDriver;
@@ -74,7 +75,7 @@ public class JTableMouseDriver extends LightSupportiveDriver implements TableDri
 	    new JTextComponentOperator((JTextComponent)toper.
 				       waitSubComponent(new JTextComponentOperator.
 							JTextComponentFinder()));
-	TextDriver text = DriverManager.getTextDriver(JTextComponentOperator.class);
+	TextDriver text = DriverManager.getTextDriver(Java5Compat.init(JTextComponentOperator.class));
 	text.clearText(textoper);
 	text.typeText(textoper, value.toString(), 0);
 	DriverManager.getKeyDriver(oper).

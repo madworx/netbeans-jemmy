@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 
 import java.awt.Component;
@@ -183,13 +184,13 @@ public class JRadioButtonMenuItemOperator extends JMenuItemOperator {
          * @param sf other searching criteria.
          */
 	public JRadioButtonMenuItemFinder(ComponentChooser sf) {
-            super(JRadioButtonMenuItem.class, sf);
+            super(Java5Compat.init(JRadioButtonMenuItem.class), sf);
 	}
         /**
          * Constructs JRadioButtonMenuItemFinder.
          */
 	public JRadioButtonMenuItemFinder() {
-            super(JRadioButtonMenuItem.class);
+            super(Java5Compat.init(JRadioButtonMenuItem.class));
 	}
     }
 } 

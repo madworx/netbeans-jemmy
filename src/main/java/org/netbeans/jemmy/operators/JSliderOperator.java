@@ -41,6 +41,7 @@ import javax.swing.plaf.SliderUI;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeoutable;
@@ -657,13 +658,13 @@ public class JSliderOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JSliderFinder(ComponentChooser sf) {
-            super(JSlider.class, sf);
+            super(Java5Compat.init(JSlider.class), sf);
 	}
         /**
          * Constructs JSliderFinder.
          */
 	public JSliderFinder() {
-            super(JSlider.class);
+            super(Java5Compat.init(JSlider.class));
 	}
     }
 

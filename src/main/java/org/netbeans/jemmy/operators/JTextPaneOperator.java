@@ -40,6 +40,7 @@ import javax.swing.text.StyledDocument;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 
 /**
  * <BR><BR>Timeouts used: <BR>
@@ -362,13 +363,13 @@ public class JTextPaneOperator extends JEditorPaneOperator {
          * @param sf other searching criteria.
          */
 	public JTextPaneFinder(ComponentChooser sf) {
-            super(JTextPane.class, sf);
+            super(Java5Compat.init(JTextPane.class), sf);
 	}
         /**
          * Constructs JTextPaneFinder.
          */
 	public JTextPaneFinder() {
-            super(JTextPane.class);
+            super(Java5Compat.init(JTextPane.class));
 	}
     }
 }

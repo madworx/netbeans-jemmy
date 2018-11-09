@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -452,13 +453,13 @@ public class JColorChooserOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JColorChooserFinder(ComponentChooser sf) {
-            super(JColorChooser.class, sf);
+            super(Java5Compat.init(JColorChooser.class), sf);
 	}
         /**
          * Constructs JColorChooserFinder.
          */
 	public JColorChooserFinder() {
-            super(JColorChooser.class);
+            super(Java5Compat.init(JColorChooser.class));
 	}
     }
 

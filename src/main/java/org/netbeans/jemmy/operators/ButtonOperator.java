@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -459,13 +460,13 @@ public class ButtonOperator extends ComponentOperator
          * @param sf other searching criteria.
          */
 	public ButtonFinder(ComponentChooser sf) {
-            super(Button.class, sf);
+            super(Java5Compat.init(Button.class), sf);
 	}
         /**
          * Constructs AbstractButtonFinder.
          */
 	public ButtonFinder() {
-            super(Button.class);
+            super(Java5Compat.init(Button.class));
 	}
     }
 }

@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeoutable;
@@ -680,13 +681,13 @@ public class JSplitPaneOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JSplitPaneFinder(ComponentChooser sf) {
-            super(JSplitPane.class, sf);
+            super(Java5Compat.init(JSplitPane.class), sf);
 	}
         /**
          * Constructs JSplitPaneFinder.
          */
 	public JSplitPaneFinder() {
-            super(JSplitPane.class);
+            super(Java5Compat.init(JSplitPane.class));
 	}
     }
     private class ValueScrollAdjuster implements ScrollAdjuster {

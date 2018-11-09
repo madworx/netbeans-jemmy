@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -308,13 +309,13 @@ public class JPasswordFieldOperator extends JTextFieldOperator{
          * @param sf other searching criteria.
          */
 	public JPasswordFieldFinder(ComponentChooser sf) {
-            super(JPasswordField.class, sf);
+            super(Java5Compat.init(JPasswordField.class), sf);
 	}
         /**
          * Constructs JPasswordFieldFinder.
          */
 	public JPasswordFieldFinder() {
-            super(JPasswordField.class);
+            super(Java5Compat.init(JPasswordField.class));
 	}
     }
 }

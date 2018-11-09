@@ -26,6 +26,7 @@ package org.netbeans.jemmy.drivers;
 
 import java.util.Hashtable;
 
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Timeout;
@@ -703,7 +704,7 @@ public class DriverManager {
 	    if(drvr != null) {
 		return(drvr);
 	    }
-	} while(ComponentOperator.class.
+	} while(Java5Compat.init(ComponentOperator.class).
 		isAssignableFrom(superClass = superClass.getSuperclass()));
 	return(null);
     }

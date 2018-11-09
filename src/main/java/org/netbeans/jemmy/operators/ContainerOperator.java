@@ -28,6 +28,7 @@ import java.awt.event.ContainerListener;
 
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -492,13 +493,13 @@ public class ContainerOperator extends ComponentOperator
          * @param sf other searching criteria.
          */
 	public ContainerFinder(ComponentChooser sf) {
-            super(Container.class, sf);
+            super(Java5Compat.init(Container.class), sf);
 	}
         /**
          * Constructs ContainerFinder.
          */
 	public ContainerFinder() {
-            super(Container.class);
+            super(Java5Compat.init(Container.class));
 	}
     }
 }

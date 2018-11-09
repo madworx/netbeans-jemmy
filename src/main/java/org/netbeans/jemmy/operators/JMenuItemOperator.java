@@ -24,6 +24,7 @@
 
 package org.netbeans.jemmy.operators;
 
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.JemmyProperties;
@@ -526,13 +527,13 @@ implements Timeoutable, Outputable{
          * @param sf other searching criteria.
          */
 	public JMenuItemFinder(ComponentChooser sf) {
-            super(JMenuItem.class, sf);
+      super(Java5Compat.init(JMenuItem.class), sf);
 	}
         /**
          * Constructs JMenuItemFinder.
          */
 	public JMenuItemFinder() {
-            super(JMenuItem.class);
+      super(Java5Compat.init(JMenuItem.class));
 	}
     }
 }

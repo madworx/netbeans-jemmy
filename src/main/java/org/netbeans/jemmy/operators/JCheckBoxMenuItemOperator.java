@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 
 import java.awt.Component;
@@ -198,13 +199,13 @@ public class JCheckBoxMenuItemOperator extends JMenuItemOperator {
          * @param sf other searching criteria.
          */
 	public JCheckBoxMenuItemFinder(ComponentChooser sf) {
-            super(JCheckBoxMenuItem.class, sf);
+            super(Java5Compat.init(JCheckBoxMenuItem.class), sf);
 	}
         /**
          * Constructs JCheckBoxMenuItemFinder.
          */
 	public JCheckBoxMenuItemFinder() {
-            super(JCheckBoxMenuItem.class);
+            super(Java5Compat.init(JCheckBoxMenuItem.class));
 	}
     }
 } 

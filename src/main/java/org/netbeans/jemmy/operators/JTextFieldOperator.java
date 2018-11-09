@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -375,13 +376,13 @@ public class JTextFieldOperator extends JTextComponentOperator{
          * @param sf other searching criteria.
          */
 	public JTextFieldFinder(ComponentChooser sf) {
-            super(JTextField.class, sf);
+            super(Java5Compat.init(JTextField.class), sf);
 	}
         /**
          * Constructs JTextFieldFinder.
          */
 	public JTextFieldFinder() {
-            super(JTextField.class);
+            super(Java5Compat.init(JTextField.class));
 	}
     }
 }

@@ -46,6 +46,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.SpinnerUI;
 
 import org.netbeans.jemmy.Action;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
@@ -630,13 +631,13 @@ public class JSpinnerOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JSpinnerFinder(ComponentChooser sf) {
-            super(JSpinner.class, sf);
+            super(Java5Compat.init(JSpinner.class), sf);
 	}
         /**
          * Constructs JSpinnerFinder.
          */
 	public JSpinnerFinder() {
-            super(JSpinner.class);
+            super(Java5Compat.init(JSpinner.class));
 	}
     }
 
@@ -655,7 +656,7 @@ public class JSpinnerOperator extends JComponentOperator
          */
 	public NumberScrollAdjuster(JSpinnerOperator oper, double value) {
 	    this.value = value;
-            checkModel(oper, SpinnerNumberModel.class);
+            checkModel(oper, Java5Compat.init(SpinnerNumberModel.class));
             model = (SpinnerNumberModel)oper.getModel();
 	}
         /**
@@ -693,7 +694,7 @@ public class JSpinnerOperator extends JComponentOperator
         int itemIndex;
         List elements;
 	private ListScrollAdjuster(JSpinnerOperator oper) {
-            checkModel(oper, SpinnerListModel.class);
+            checkModel(oper, Java5Compat.init(SpinnerListModel.class));
             model = (SpinnerListModel)oper.getModel();
             elements = model.getList();
         }
@@ -748,7 +749,7 @@ public class JSpinnerOperator extends JComponentOperator
          */
 	public DateScrollAdjuster(JSpinnerOperator oper, Date date) {
             this.date = date;
-            checkModel(oper, SpinnerDateModel.class);
+            checkModel(oper, Java5Compat.init(SpinnerDateModel.class));
             model = (SpinnerDateModel)oper.getModel();
         }
 	public int getScrollDirection() {
@@ -881,7 +882,7 @@ public class JSpinnerOperator extends JComponentOperator
         private NumberSpinnerOperator(JSpinnerOperator spinner) {
             super((JSpinner)spinner.getSource());
             copyEnvironment(spinner);
-            checkModel(this, SpinnerNumberModel.class);
+            checkModel(this, Java5Compat.init(SpinnerNumberModel.class));
         }
         /**
          * Costs spinner's model to <code>SpinnerNumberModel<code>.
@@ -917,7 +918,7 @@ public class JSpinnerOperator extends JComponentOperator
         private ListSpinnerOperator(JSpinnerOperator spinner) {
             super((JSpinner)spinner.getSource());
             copyEnvironment(spinner);
-            checkModel(this, SpinnerListModel.class);
+            checkModel(this, Java5Compat.init(SpinnerListModel.class));
         }
         /**
          * Costs spinner's model to <code>SpinnerListModel<code>.
@@ -989,7 +990,7 @@ public class JSpinnerOperator extends JComponentOperator
         private DateSpinnerOperator(JSpinnerOperator spinner) {
             super((JSpinner)spinner.getSource());
             copyEnvironment(spinner);
-            checkModel(this, SpinnerDateModel.class);
+            checkModel(this, Java5Compat.init(SpinnerDateModel.class));
         }
         /**
          * Costs spinner's model to <code>SpinnerDateModel<code>.
