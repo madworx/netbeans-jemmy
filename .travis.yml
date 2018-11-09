@@ -13,9 +13,9 @@ jdk:
   - openjdk8
 
 script:
-  - sonar-scanner
   - mvn package
   - mvn -Dmaven.test.skip=true -Dgpg.skip=true -DcreateChecksum=true install
+  - sonar-scanner
 
 deploy:
   provider: releases
