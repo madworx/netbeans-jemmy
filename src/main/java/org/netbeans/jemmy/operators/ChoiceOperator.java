@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -549,13 +550,13 @@ public class ChoiceOperator extends ComponentOperator implements Outputable{
          * @param sf other searching criteria.
          */
 	public ChoiceFinder(ComponentChooser sf) {
-            super(Choice.class, sf);
+            super(Java5Compat.init(Choice.class), sf);
 	}
         /**
          * Constructs ChoiceFinder.
          */
 	public ChoiceFinder() {
-            super(Choice.class);
+            super(Java5Compat.init(Choice.class));
 	}
     }
 }

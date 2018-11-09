@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.QueueTool;
@@ -387,7 +388,7 @@ implements Outputable, Timeoutable {
 
     static {
         //necessary to init timeouts
-        JMenuOperator.class.getName();
+        Java5Compat.init(JMenuOperator.class).getName();
     }
 
     public void setOutput(TestOut out) {
@@ -1047,13 +1048,13 @@ implements Outputable, Timeoutable {
          * @param sf other searching criteria.
          */
 	public JPopupMenuFinder(ComponentChooser sf) {
-            super(JPopupMenu.class, sf);
+            super(Java5Compat.init(JPopupMenu.class), sf);
 	}
         /**
          * Constructs JPopupMenuFinder.
          */
 	public JPopupMenuFinder() {
-            super(JPopupMenu.class);
+            super(Java5Compat.init(JPopupMenu.class));
 	}
         public boolean checkComponent(Component comp) {
             return(comp.isShowing() &&

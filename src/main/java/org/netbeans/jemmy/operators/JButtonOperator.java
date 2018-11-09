@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -307,13 +308,13 @@ public class JButtonOperator extends AbstractButtonOperator{
          * @param sf other searching criteria.
          */
 	public JButtonFinder(ComponentChooser sf) {
-            super(JButton.class, sf);
+            super(Java5Compat.init(JButton.class), sf);
 	}
         /**
          * Constructs JButtonFinder.
          */
 	public JButtonFinder() {
-            super(JButton.class);
+            super(Java5Compat.init(JButton.class));
 	}
     }
 }

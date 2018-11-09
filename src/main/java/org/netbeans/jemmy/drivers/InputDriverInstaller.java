@@ -25,6 +25,7 @@
 package org.netbeans.jemmy.drivers;
 
 import org.netbeans.jemmy.EventDispatcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Timeout;
@@ -103,7 +104,7 @@ public class InputDriverInstaller {
 	this(true);
     }
     static {
-	Class clss= EventDispatcher.class;
+	Class clss= Java5Compat.init(EventDispatcher.class);
     }
 
     /**

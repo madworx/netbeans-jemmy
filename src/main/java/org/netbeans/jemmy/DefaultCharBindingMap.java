@@ -24,6 +24,8 @@
 
 package org.netbeans.jemmy;
 
+import org.netbeans.jemmy.Java5Compat;
+
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -132,7 +134,7 @@ public class DefaultCharBindingMap implements CharBindingMap {
     private void initMap() {
         chars = new Hashtable();
         //first add latters and digits represented by KeyEvent.VK_. fields
-        Field[] fields = KeyEvent.class.getFields();
+        Field[] fields = Java5Compat.init(KeyEvent.class).getFields();
         for(int i = 0; i < fields.length; i++) {
             String name = fields[i].getName();
             if((fields[i].getModifiers() & Modifier.PUBLIC) != 0 &&

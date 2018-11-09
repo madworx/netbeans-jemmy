@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -732,13 +733,13 @@ public class ScrollPaneOperator extends ContainerOperator
          * @param sf other searching criteria.
          */
 	public ScrollPaneFinder(ComponentChooser sf) {
-            super(ScrollPane.class, sf);
+            super(Java5Compat.init(ScrollPane.class), sf);
 	}
         /**
          * Constructs ScrollPaneFinder.
          */
 	public ScrollPaneFinder() {
-            super(ScrollPane.class);
+            super(Java5Compat.init(ScrollPane.class));
 	}
     }
 }

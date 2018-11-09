@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Timeouts;
 import org.netbeans.jemmy.TimeoutExpiredException;
@@ -367,13 +368,13 @@ public class JFrameOperator extends FrameOperator {
          * @param sf other searching criteria.
          */
 	public JFrameFinder(ComponentChooser sf) {
-            super(JFrame.class, sf);
+            super(Java5Compat.init(JFrame.class), sf);
 	}
         /**
          * Constructs JFrameFinder.
          */
 	public JFrameFinder() {
-            super(JFrame.class);
+            super(Java5Compat.init(JFrame.class));
 	}
     }
 }

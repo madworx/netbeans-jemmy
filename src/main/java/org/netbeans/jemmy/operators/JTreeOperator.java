@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyInputException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -2510,13 +2511,13 @@ public class JTreeOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JTreeFinder(ComponentChooser sf) {
-            super(JTree.class, sf);
+            super(Java5Compat.init(JTree.class), sf);
 	}
         /**
          * Constructs JTreeFinder.
          */
 	public JTreeFinder() {
-            super(JTree.class);
+            super(Java5Compat.init(JTree.class));
 	}
     }
 

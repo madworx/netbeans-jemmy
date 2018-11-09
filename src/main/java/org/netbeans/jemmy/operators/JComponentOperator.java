@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -97,6 +98,8 @@ public class JComponentOperator extends ContainerOperator
      * @param b a component
      */
     public JComponentOperator(JComponent b) {
+
+       
 	super(b);
     }
 
@@ -120,6 +123,7 @@ public class JComponentOperator extends ContainerOperator
      */
     public JComponentOperator(ContainerOperator cont, ComponentChooser chooser) {
 	this(cont, chooser, 0);
+
     }
 
     /**
@@ -156,6 +160,7 @@ public class JComponentOperator extends ContainerOperator
      * @return JComponent instance or null if component was not found.
      */
     public static JComponent findJComponent(Container cont, ComponentChooser chooser, int index) {
+
 	return((JComponent)findComponent(cont, new JComponentFinder(chooser), index));
     }
 
@@ -852,13 +857,13 @@ public class JComponentOperator extends ContainerOperator
          * @param sf other searching criteria.
          */
 	public JComponentFinder(ComponentChooser sf) {
-            super(JComponent.class, sf);
+            super(Java5Compat.init(JComponent.class), sf);
 	}
         /**
          * Constructs JComponentFinder.
          */
 	public JComponentFinder() {
-            super(JComponent.class);
+            super(Java5Compat.init(JComponent.class));
 	}
     }
 
@@ -892,10 +897,10 @@ public class JComponentOperator extends ContainerOperator
 
     class JToolTipFinder extends Finder {
 	public JToolTipFinder(ComponentChooser sf) {
-            super(JToolTip.class, sf);
+            super(Java5Compat.init(JToolTip.class), sf);
 	}
 	public JToolTipFinder() {
-            super(JToolTip.class);
+            super(Java5Compat.init(JToolTip.class));
 	}
     }
 }

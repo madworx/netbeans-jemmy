@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -255,13 +256,13 @@ public class JCheckBoxOperator extends JToggleButtonOperator{
          * @param sf other searching criteria.
          */
 	public JCheckBoxFinder(ComponentChooser sf) {
-            super(JCheckBox.class, sf);
+            super(Java5Compat.init(JCheckBox.class), sf);
 	}
         /**
          * Constructs JCheckBoxFinder.
          */
 	public JCheckBoxFinder() {
-            super(JCheckBox.class);
+            super(Java5Compat.init(JCheckBox.class));
 	}
     }
 }

@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
 import java.awt.Component;
@@ -263,13 +264,13 @@ public class JToggleButtonOperator extends AbstractButtonOperator{
          * @param sf other searching criteria.
          */
 	public JToggleButtonFinder(ComponentChooser sf) {
-            super(JToggleButton.class, sf);
+            super(Java5Compat.init(JToggleButton.class), sf);
 	}
         /**
          * Constructs JToggleButtonFinder.
          */
 	public JToggleButtonFinder() {
-            super(JToggleButton.class);
+            super(Java5Compat.init(JToggleButton.class));
 	}
     }
 }

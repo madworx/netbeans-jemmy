@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -459,14 +460,14 @@ public class CheckboxOperator extends ComponentOperator implements Outputable {
          * @param sf other searching criteria.
          */
 	public CheckboxFinder(ComponentChooser sf) {
-            super(Checkbox.class, sf);
+            super(Java5Compat.init(Checkbox.class), sf);
 	}
 
         /**
          * Constructs CheckboxFinder.
          */
 	public CheckboxFinder() {
-            super(Checkbox.class);
+            super(Java5Compat.init(Checkbox.class));
 	}
     }
 }

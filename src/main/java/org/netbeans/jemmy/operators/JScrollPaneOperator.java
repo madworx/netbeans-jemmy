@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeoutable;
@@ -775,13 +776,13 @@ public class JScrollPaneOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JScrollPaneFinder(ComponentChooser sf) {
-            super(JScrollPane.class, sf);
+            super(Java5Compat.init(JScrollPane.class), sf);
 	}
         /**
          * Constructs JScrollPaneFinder.
          */
 	public JScrollPaneFinder() {
-            super(JScrollPane.class);
+            super(Java5Compat.init(JScrollPane.class));
 	}
     }
 }

@@ -53,6 +53,7 @@ import javax.swing.plaf.FileChooserUI;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
@@ -1282,13 +1283,13 @@ public class JFileChooserOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public JFileChooserFinder(ComponentChooser sf) {
-            super(JFileChooser.class, sf);
+            super(Java5Compat.init(JFileChooser.class), sf);
 	}
         /**
          * Constructs JFileChooserFinder.
          */
 	public JFileChooserFinder() {
-            super(JFileChooser.class);
+            super(Java5Compat.init(JFileChooser.class));
 	}
     }
 

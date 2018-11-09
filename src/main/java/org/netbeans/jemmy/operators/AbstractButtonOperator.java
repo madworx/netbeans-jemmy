@@ -27,6 +27,7 @@ package org.netbeans.jemmy.operators;
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -886,13 +887,13 @@ public class AbstractButtonOperator extends JComponentOperator
          * @param sf other searching criteria.
          */
 	public AbstractButtonFinder(ComponentChooser sf) {
-            super(AbstractButton.class, sf);
+            super(Java5Compat.init(AbstractButton.class), sf);
 	}
         /**
          * Constructs AbstractButtonFinder.
          */
 	public AbstractButtonFinder() {
-            super(AbstractButton.class);
+            super(Java5Compat.init(AbstractButton.class));
 	}
     }
 }

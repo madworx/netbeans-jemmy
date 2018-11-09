@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.DialogWaiter;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.TestOut;
@@ -412,13 +413,13 @@ public class DialogOperator extends WindowOperator {
          * @param sf other searching criteria.
          */
 	public DialogFinder(ComponentChooser sf) {
-            super(Dialog.class, sf);
+            super(Java5Compat.init(Dialog.class), sf);
 	}
         /**
          * Constructs DialogFinder.
          */
 	public DialogFinder() {
-            super(Dialog.class);
+            super(Java5Compat.init(Dialog.class));
 	}
     }
 

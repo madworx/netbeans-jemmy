@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeouts;
@@ -644,13 +645,13 @@ public class JDialogOperator extends DialogOperator {
          * @param sf other searching criteria.
          */
 	public JDialogFinder(ComponentChooser sf) {
-            super(JDialog.class, sf);
+            super(Java5Compat.init(JDialog.class), sf);
 	}
         /**
          * Constructs JDialogFinder.
          */
 	public JDialogFinder() {
-            super(JDialog.class);
+            super(Java5Compat.init(JDialog.class));
 	}
     }
 }

@@ -26,6 +26,7 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
+import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.JemmyInputException;
 import org.netbeans.jemmy.JemmyProperties;
@@ -601,13 +602,13 @@ public class ListOperator extends ComponentOperator
          * @param sf other searching criteria.
          */
 	public ListFinder(ComponentChooser sf) {
-            super(List.class, sf);
+            super(Java5Compat.init(List.class), sf);
 	}
         /**
          * Constructs ListFinder.
          */
 	public ListFinder() {
-            super(List.class);
+            super(Java5Compat.init(List.class));
 	}
     }
 }
