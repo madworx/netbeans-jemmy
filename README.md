@@ -19,6 +19,4 @@ Reason behind this fork are the following:
 * We needed  to extend the  functionality of  the Jemmy library  for a
   Robot Framework / RemoteSwingLibrary project.
 
-* The  current Jemmy library  builds on  "any" JVM binary  target, but
-  only seems to work (test suite from SwingLibrary) when built against
-  1.4 bytecode. Possibly some Java Reflection issues.
+* The original Jemmy library would only build with pre-Java-5 target.
