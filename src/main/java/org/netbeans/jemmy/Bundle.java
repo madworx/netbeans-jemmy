@@ -92,11 +92,15 @@ public class Bundle extends Object {
      * @exception	FileNotFoundException
      */
     public void loadFromJar(String fileName, String entryName) 
-	throws IOException, FileNotFoundException {
-	JarFile jFile = new JarFile(fileName);
-	load(jFile.getInputStream(jFile.getEntry(entryName)));
+       throws IOException, FileNotFoundException {
+       JarFile jFile = new JarFile(fileName);
+       try { 
+          load(jFile.getInputStream(jFile.getEntry(entryName)));
+       } finally {
+          jFile.close();
+       }
     }
-
+   
     /**
      * Loads resources from a file in a zip archive.
      * 
@@ -106,13 +110,17 @@ public class Bundle extends Object {
      * @exception	IOException
      * @exception	FileNotFoundException
      */
-    public void loadFromZip(String fileName, String entryName)
-	throws IOException, FileNotFoundException, ZipException {
-	ZipFile zFile = new ZipFile(fileName);
-	load(zFile.getInputStream(zFile.getEntry(entryName)));
-    }
-
-    /**
+   public void loadFromZip(String fileName, String entryName)
+      throws IOException, FileNotFoundException, ZipException {
+      ZipFile zFile = new ZipFile(fileName);
+      try { 
+         load(zFile.getInputStream(zFile.getEntry(entryName)));
+      } finally {
+         zFile.close();
+      }
+   }
+   
+   /**
      * Prints bundle contents.
      * @param writer Writer to print data in.
      */
