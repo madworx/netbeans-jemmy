@@ -882,34 +882,35 @@ public class EventDispatcher implements Outputable, Timeoutable {
 	}
     }
 
-    private void waitMouseOver() {
-	try {
-	    Waiter wt = new Waiter(new Waitable() {
-		public Object actionProduced(Object obj) {
-		    if(motionListener.getComponent() != null) {
-			return("");
-		    } else {
-			return(null);
-		    }
-		}
-		public String getDescription() {
-		    return("Mouse over component");
-		}
-	    });
-	    wt.setTimeouts(timeouts.cloneThis());
-	    wt.getTimeouts().setTimeout("Waiter.WaitingTime", 
-					timeouts.getTimeout("EventDispatcher.WaitComponentUnderMouseTimeout"));
-	    wt.setOutput(output.createErrorOutput());
-	    wt.waitAction(component);
-	} catch(InterruptedException e) {
-	    output.printStackTrace(e);
-	} catch(TimeoutExpiredException e) {
-	    throw(new NoComponentUnderMouseException());
-	}
-    }
+   private void waitMouseOver() {
+      try {
+         Waiter wt = new Waiter(new Waitable() {
+               public Object actionProduced(Object obj) {
+                  if(motionListener.getComponent() != null) {
+                     return("");
+                  } else {
+                     return(null);
+                  }
+               }
+               public String getDescription() {
+                  return("Mouse over component");
+               }
+            });
+         wt.setTimeouts(timeouts.cloneThis());
+         wt.getTimeouts().setTimeout("Waiter.WaitingTime",
+                                     timeouts.getTimeout("EventDispatcher.WaitComponentUnderMouseTimeout"));
+         wt.setOutput(output.createErrorOutput());
+         wt.waitAction(component);
+      } catch(InterruptedException e) {
+         output.printStackTrace(e);
+         throw new AssertionError("EventDriver::waitMouserOver() was interrupted and doesn't handle this properly.");
+      } catch(TimeoutExpiredException e) {
+         throw(new NoComponentUnderMouseException());
+      }
+   }
 
-    //produce a robot operations through reflection
-    private void makeRobotOperation(String method, Object[] params, Class[] paramClasses) {
+   //produce a robot operations through reflection
+   private void makeRobotOperation(String method, Object[] params, Class[] paramClasses) {
 	try {
 	    robotReference.invokeMethod(method, params, paramClasses);
 	} catch(InvocationTargetException e) {
