@@ -408,6 +408,7 @@ public class Test extends ActionProducer
 	try {
 	    Thread.currentThread().sleep(time);
 	} catch(InterruptedException e) {
+      Thread.currentThread().interrupt();
 	}
     }
 

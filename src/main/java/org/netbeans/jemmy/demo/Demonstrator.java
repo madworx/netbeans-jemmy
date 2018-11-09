@@ -68,6 +68,7 @@ public class Demonstrator {
 	    try {
 		Thread.currentThread().sleep(100);
 	    } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
 	    }
 	}
 	if(getDisplayer() != nonDisplayer) {
@@ -94,6 +95,7 @@ public class Demonstrator {
 	    try {
 		Thread.currentThread().sleep(100);
 	    } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
 	    }
 	}
 	getDisplayer().close();
