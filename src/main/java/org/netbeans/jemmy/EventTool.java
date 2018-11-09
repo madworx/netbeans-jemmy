@@ -337,6 +337,8 @@ public class EventTool implements Timeoutable, Outputable {
 	    return(false);
 	} catch(TimeoutExpiredException e) {
 	    return(true);
+	} catch(NullPointerException e) {
+      throw new AssertionError(e);
 	}
     }
 
