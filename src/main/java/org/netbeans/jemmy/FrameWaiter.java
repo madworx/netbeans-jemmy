@@ -301,7 +301,8 @@ public class FrameWaiter extends WindowWaiter implements Timeoutable, Outputable
     /**
      * @see Waiter#getWaitingStartedMessage()
      */
-    protected String getWaitingStartedMessage() {
+    @Override
+   protected String getWaitingStartedMessage() {
 	return("Start to wait frame \"" + getComponentChooser().getDescription() + "\" opened");
     }
 
@@ -312,6 +313,7 @@ public class FrameWaiter extends WindowWaiter implements Timeoutable, Outputable
      * @return a message tring
      * @see	Waiter#getTimeoutExpiredMessage(long)
      */
+   @Override
     protected String getTimeoutExpiredMessage(long timeSpent) {
 	return("Frame \"" + getComponentChooser().getDescription() + "\" has not been opened in " +
 	       (new Long(timeSpent)).toString() + " milliseconds");
@@ -325,6 +327,7 @@ public class FrameWaiter extends WindowWaiter implements Timeoutable, Outputable
      * @return a message tring
      * @see	Waiter#getActionProducedMessage(long, Object)
      */
+   @Override
     protected String getActionProducedMessage(long timeSpent, final Object result) {
         String resultToString = null;
         if(result instanceof Component) {
@@ -347,6 +350,7 @@ public class FrameWaiter extends WindowWaiter implements Timeoutable, Outputable
     /**
      * @see Waiter#getGoldenWaitingStartedMessage()
      */
+   @Override
     protected String getGoldenWaitingStartedMessage() {
 	return("Start to wait frame \"" + getComponentChooser().getDescription() + "\" opened");
     }
@@ -361,6 +365,7 @@ public class FrameWaiter extends WindowWaiter implements Timeoutable, Outputable
     /**
      * @see Waiter#getGoldenActionProducedMessage()
      */
+   @Override
     protected String getGoldenActionProducedMessage() {
 	return("Frame \"" + getComponentChooser().getDescription() + "\" has been opened");
     }

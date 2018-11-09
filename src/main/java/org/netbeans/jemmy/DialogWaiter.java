@@ -500,6 +500,7 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
     /**
      * @see org.netbeans.jemmy.Waiter#getWaitingStartedMessage()
      */
+   @Override 
     protected String getWaitingStartedMessage() {
 	return("Start to wait dialog \"" + getComponentChooser().getDescription() + "\" opened");
     }
@@ -511,6 +512,7 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
      * @param	spendedTime Time spent for waiting
      * @return A message string.
      */
+   @Override 
     protected String getTimeoutExpiredMessage(long spendedTime) {
 	return("Dialog \"" + getComponentChooser().getDescription() + "\" has not been opened in " +
 	       (new Long(spendedTime)).toString() + " milliseconds");
@@ -524,6 +526,7 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
      * @param	result A result of the action
      * @return A message string.
      */
+   @Override 
     protected String getActionProducedMessage(long spendedTime, final Object result) {
         String resultToString;
         if(result instanceof Component) {
@@ -546,6 +549,7 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
     /**
      * @see org.netbeans.jemmy.Waiter#getGoldenWaitingStartedMessage()
      */
+   @Override 
     protected String getGoldenWaitingStartedMessage() {
 	return("Start to wait dialog \"" + getComponentChooser().getDescription() + "\" opened");
     }
@@ -553,6 +557,7 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
     /**
      * @see org.netbeans.jemmy.Waiter#getGoldenTimeoutExpiredMessage()
      */
+   @Override
     protected String getGoldenTimeoutExpiredMessage() {
 	return("Dialog \"" + getComponentChooser().getDescription() + "\" has not been opened");
     }
@@ -560,13 +565,9 @@ public class DialogWaiter extends WindowWaiter implements Timeoutable, Outputabl
     /**
      * @see org.netbeans.jemmy.Waiter#getGoldenActionProducedMessage()
      */
+   @Override 
     protected String getGoldenActionProducedMessage() {
 	return("Dialog \"" + getComponentChooser().getDescription() + "\" has been opened");
-    }
-
-    private Dialog waitDialog()
-	throws InterruptedException {
-	return((Dialog)waitAction(""));
     }
 
     private static class DialogSubChooser implements ComponentChooser {
