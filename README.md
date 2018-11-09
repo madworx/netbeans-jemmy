@@ -1,6 +1,6 @@
 # netbeans-jemmy
 
-[![Build Status](https://travis-ci.org/madworx/netbeans-jemmy.svg?branch=master)](https://travis-ci.org/madworx/netbeans-jemmy)[![](https://jitpack.io/v/madworx/netbeans-jemmy.svg)](https://jitpack.io/#madworx/netbeans-jemmy)
+[![Build Status](https://travis-ci.org/madworx/netbeans-jemmy.svg?branch=master)](https://travis-ci.org/madworx/netbeans-jemmy)[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=netbeans-jemmy&metric=alert_status)](https://sonarcloud.io/dashboard?id=netbeans-jemmy)
 
 Fork of the Netbeans Jemmy library, sourced from
 
