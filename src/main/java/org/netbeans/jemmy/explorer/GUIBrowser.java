@@ -208,7 +208,11 @@ public class GUIBrowser extends JFrame{
                 try {
                     File file = chooser.getSelectedFile();
                     OutputStream output = new FileOutputStream(file);
-                    output.write(dumpData.toByteArray());
+                    try { 
+                       output.write(dumpData.toByteArray());
+                    } finally {
+                       output.close();
+                    }
                 } catch(IOException ee) {
                     ee.printStackTrace();
                 }
