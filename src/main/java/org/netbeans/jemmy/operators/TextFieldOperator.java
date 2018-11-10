@@ -1,50 +1,41 @@
 /*
- * The contents of this file are subject to the terms of the Common Development
- * and Distribution License (the License). You may not use this file except in
- * compliance with the License.
+ * Copyright (c) 1997, 2016, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
- * or http://www.netbeans.org/cddl.txt.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
- * When distributing Covered Code, include this CDDL Header Notice in each file
- * and include the License file at http://www.netbeans.org/cddl.txt.
- * If applicable, add the following below the CDDL Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * The Original Software is the Jemmy library.
- * The Initial Developer of the Original Software is Alexandre Iline.
- * All Rights Reserved.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Contributor(s): Alexandre Iline.
- *
- * $Id: TextFieldOperator.java,v 1.7 2006/06/30 14:00:48 jtulach Exp $ $Revision: 1.7 $ $Date: 2006/06/30 14:00:48 $
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
-
 package org.netbeans.jemmy.operators;
-
-import org.netbeans.jemmy.ActionProducer;
-import org.netbeans.jemmy.Action;
-import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
-import org.netbeans.jemmy.Java5Compat;
-import org.netbeans.jemmy.JemmyProperties;
-import org.netbeans.jemmy.Outputable;
-import org.netbeans.jemmy.TestOut;
-import org.netbeans.jemmy.Timeoutable;
-import org.netbeans.jemmy.Timeouts;
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.TextField;
-
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.TextListener;
-
 import java.util.Hashtable;
+
+import org.netbeans.jemmy.ComponentChooser;
+import org.netbeans.jemmy.Outputable;
+import org.netbeans.jemmy.TestOut;
+import org.netbeans.jemmy.Timeoutable;
+import org.netbeans.jemmy.Timeouts;
 
 /**
  *
@@ -52,14 +43,15 @@ import java.util.Hashtable;
  *
  * @see org.netbeans.jemmy.Timeouts
  *
- * @author Alexandre Iline (alexandre.iline@sun.com)
- *	
+ * @author Alexandre Iline (alexandre.iline@oracle.com)
+ *
  */
 public class TextFieldOperator extends TextComponentOperator
-    implements Timeoutable, Outputable {
+        implements Timeoutable, Outputable {
 
     /**
      * Identifier for a "text" property.
+     *
      * @see #getDump
      */
     public static final String TEXT_DPROP = "Text";
@@ -74,128 +66,135 @@ public class TextFieldOperator extends TextComponentOperator
 
     /**
      * Constructor.
-     * @param b The <code>java.awt.TextField</code> managed by
-     * this instance.
+     *
+     * @param b The {@code java.awt.TextField} managed by this instance.
      */
     public TextFieldOperator(TextField b) {
-	super(b);
+        super(b);
     }
 
     /**
      * Constructs a TextFieldOperator object.
+     *
      * @param cont a container
      * @param chooser a component chooser specifying searching criteria.
      * @param index an index between appropriate ones.
      */
-    public TextFieldOperator(ContainerOperator cont, ComponentChooser chooser, int index) {
-	this((TextField)cont.
-             waitSubComponent(new TextFieldFinder(chooser),
-                              index));
-	copyEnvironment(cont);
+    public TextFieldOperator(ContainerOperator<?> cont, ComponentChooser chooser, int index) {
+        this((TextField) cont.
+                waitSubComponent(new TextFieldFinder(chooser),
+                        index));
+        copyEnvironment(cont);
     }
 
     /**
      * Constructs a TextFieldOperator object.
+     *
      * @param cont a container
      * @param chooser a component chooser specifying searching criteria.
      */
-    public TextFieldOperator(ContainerOperator cont, ComponentChooser chooser) {
-	this(cont, chooser, 0);
+    public TextFieldOperator(ContainerOperator<?> cont, ComponentChooser chooser) {
+        this(cont, chooser, 0);
     }
 
     /**
-     * Constructor.
-     * Waits for a component in a container to show. The component is
-     * identified as the <code>index+1</code>'th
-     * <code>java.awt.TextField</code> that shows, lies below
-     * the container in the display containment hierarchy,
-     * and that has the desired text. Uses cont's timeout and output
-     * for waiting and to init this operator.
-     * @param cont The operator for a container containing the sought for textField.
-     * @param text TextField text. 
-     * @param index Ordinal component index. The first component has <code>index</code> 0.
+     * Constructor. Waits for a component in a container to show. The component
+     * is identified as the {@code index+1}'th
+     * {@code java.awt.TextField} that shows, lies below the container in
+     * the display containment hierarchy, and that has the desired text. Uses
+     * cont's timeout and output for waiting and to init this operator.
+     *
+     * @param cont The operator for a container containing the sought for
+     * textField.
+     * @param text TextField text.
+     * @param index Ordinal component index. The first component has
+     * {@code index} 0.
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
-    public TextFieldOperator(ContainerOperator cont, String text, int index) {
-	this((TextField)waitComponent(cont, 
-					   new TextFieldByTextFinder(text, 
-									   cont.getComparator()),
-					   index));
-	copyEnvironment(cont);
+    public TextFieldOperator(ContainerOperator<?> cont, String text, int index) {
+        this((TextField) waitComponent(cont,
+                new TextFieldByTextFinder(text,
+                        cont.getComparator()),
+                index));
+        copyEnvironment(cont);
     }
 
     /**
-     * Constructor.
-     * Waits for a component in a container to show. The component is
-     * identified as the first
-     * <code>java.awt.TextField</code> that shows, lies below
-     * the container in the display containment hierarchy,
-     * and that has the desired text. Uses cont's timeout and output
-     * for waiting and to init this operator.
-     * @param cont The operator for a container containing the sought for textField.
-     * @param text TextField text. 
+     * Constructor. Waits for a component in a container to show. The component
+     * is identified as the first {@code java.awt.TextField} that shows,
+     * lies below the container in the display containment hierarchy, and that
+     * has the desired text. Uses cont's timeout and output for waiting and to
+     * init this operator.
+     *
+     * @param cont The operator for a container containing the sought for
+     * textField.
+     * @param text TextField text.
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
-    public TextFieldOperator(ContainerOperator cont, String text) {
-	this(cont, text, 0);
+    public TextFieldOperator(ContainerOperator<?> cont, String text) {
+        this(cont, text, 0);
     }
 
     /**
-     * Constructor.
-     * Waits component in container first.
-     * Uses cont's timeout and output for waiting and to init operator.
-     * @param cont The operator for a container containing the sought for textField.
+     * Constructor. Waits component in container first. Uses cont's timeout and
+     * output for waiting and to init operator.
+     *
+     * @param cont The operator for a container containing the sought for
+     * textField.
      * @param index Ordinal component index.
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
-    public TextFieldOperator(ContainerOperator cont, int index) {
-	this((TextField)
-	     waitComponent(cont, 
-			   new TextFieldFinder(),
-			   index));
-	copyEnvironment(cont);
+    public TextFieldOperator(ContainerOperator<?> cont, int index) {
+        this((TextField) waitComponent(cont,
+                new TextFieldFinder(),
+                index));
+        copyEnvironment(cont);
     }
 
     /**
-     * Constructor.
-     * Waits component in container first.
-     * Uses cont's timeout and output for waiting and to init operator.
-     * @param cont The operator for a container containing the sought for textField.
+     * Constructor. Waits component in container first. Uses cont's timeout and
+     * output for waiting and to init operator.
+     *
+     * @param cont The operator for a container containing the sought for
+     * textField.
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
-    public TextFieldOperator(ContainerOperator cont) {
-	this(cont, 0);
+    public TextFieldOperator(ContainerOperator<?> cont) {
+        this(cont, 0);
     }
 
     /**
      * Searches TextField in a container.
-     * @param cont Container in which to search for the component.  The container
-     * lies above the component in the display containment hierarchy.  The containment
-     * need not be direct.
-     * @param chooser org.netbeans.jemmy.ComponentChooser implementation, defining and
-     * applying search criteria.
-     * @param index Ordinal component index.  The first <code>index</code> is 0.
+     *
+     * @param cont Container in which to search for the component. The container
+     * lies above the component in the display containment hierarchy. The
+     * containment need not be direct.
+     * @param chooser org.netbeans.jemmy.ComponentChooser implementation,
+     * defining and applying search criteria.
+     * @param index Ordinal component index. The first {@code index} is 0.
      * @return TextField instance or null if component was not found.
      */
     public static TextField findTextField(Container cont, ComponentChooser chooser, int index) {
-	return((TextField)findComponent(cont, new TextFieldFinder(chooser), index));
+        return (TextField) findComponent(cont, new TextFieldFinder(chooser), index);
     }
 
     /**
      * Searches for the first TextField in a container.
-     * @param cont Container in which to search for the component.  The container
-     * lies above the component in the display containment hierarchy.  The containment
-     * need not be direct.
-     * @param chooser org.netbeans.jemmy.ComponentChooser implementation, defining and
-     * applying search criteria.
+     *
+     * @param cont Container in which to search for the component. The container
+     * lies above the component in the display containment hierarchy. The
+     * containment need not be direct.
+     * @param chooser org.netbeans.jemmy.ComponentChooser implementation,
+     * defining and applying search criteria.
      * @return TextField instance or null if component was not found.
      */
     public static TextField findTextField(Container cont, ComponentChooser chooser) {
-	return(findTextField(cont, chooser, 0));
+        return findTextField(cont, chooser, 0);
     }
 
     /**
      * Searches TextField by text.
+     *
      * @param cont Container to search component in.
      * @param text TextField text. If null, contents is not checked.
      * @param ce Compare text exactly.
@@ -205,11 +204,12 @@ public class TextFieldOperator extends TextComponentOperator
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
     public static TextField findTextField(Container cont, String text, boolean ce, boolean ccs, int index) {
-	return(findTextField(cont, new TextFieldByTextFinder(text, new DefaultStringComparator(ce, ccs)), index));
+        return findTextField(cont, new TextFieldByTextFinder(text, new DefaultStringComparator(ce, ccs)), index);
     }
 
     /**
      * Searches TextField by text.
+     *
      * @param cont Container to search component in.
      * @param text TextField text. If null, contents is not checked.
      * @param ce Compare text exactly.
@@ -218,32 +218,35 @@ public class TextFieldOperator extends TextComponentOperator
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
     public static TextField findTextField(Container cont, String text, boolean ce, boolean ccs) {
-	return(findTextField(cont, text, ce, ccs, 0));
+        return findTextField(cont, text, ce, ccs, 0);
     }
 
     /**
      * Waits TextField in container.
+     *
      * @param cont Container to search component in.
      * @param chooser org.netbeans.jemmy.ComponentChooser implementation.
      * @param index Ordinal component index.
      * @return TextField instance.
      */
     public static TextField waitTextField(Container cont, ComponentChooser chooser, int index) {
-	return((TextField)waitComponent(cont, new TextFieldFinder(chooser), index));
+        return (TextField) waitComponent(cont, new TextFieldFinder(chooser), index);
     }
 
     /**
      * Waits 0'th TextField in container.
+     *
      * @param cont Container to search component in.
      * @param chooser org.netbeans.jemmy.ComponentChooser implementation.
      * @return TextField instance.
      */
-    public static TextField waitTextField(Container cont, ComponentChooser chooser){
-	return(waitTextField(cont, chooser, 0));
+    public static TextField waitTextField(Container cont, ComponentChooser chooser) {
+        return waitTextField(cont, chooser, 0);
     }
 
     /**
      * Waits TextField by text.
+     *
      * @param cont Container to search component in.
      * @param text TextField text. If null, contents is not checked.
      * @param ce Compare text exactly.
@@ -253,11 +256,12 @@ public class TextFieldOperator extends TextComponentOperator
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
     public static TextField waitTextField(Container cont, String text, boolean ce, boolean ccs, int index) {
-	return(waitTextField(cont, new TextFieldByTextFinder(text, new DefaultStringComparator(ce, ccs)), index));
+        return waitTextField(cont, new TextFieldByTextFinder(text, new DefaultStringComparator(ce, ccs)), index);
     }
 
     /**
      * Waits TextField by text.
+     *
      * @param cont Container to search component in.
      * @param text TextField text. If null, contents is not checked.
      * @param ce Compare text exactly.
@@ -266,154 +270,214 @@ public class TextFieldOperator extends TextComponentOperator
      * @see ComponentOperator#isCaptionEqual(String, String, boolean, boolean)
      */
     public static TextField waitTextField(Container cont, String text, boolean ce, boolean ccs) {
-	return(waitTextField(cont, text, ce, ccs, 0));
+        return waitTextField(cont, text, ce, ccs, 0);
     }
 
     static {
-	Timeouts.initDefault("TextFieldOperator.PushKeyTimeout", PUSH_KEY_TIMEOUT);
-	Timeouts.initDefault("TextFieldOperator.BetweenKeysTimeout", BETWEEN_KEYS_TIMEOUT);
-	Timeouts.initDefault("TextFieldOperator.ChangeCaretPositionTimeout", CHANGE_CARET_POSITION_TIMEOUT);
-	Timeouts.initDefault("TextFieldOperator.TypeTextTimeout", TYPE_TEXT_TIMEOUT);
+        Timeouts.initDefault("TextFieldOperator.PushKeyTimeout", PUSH_KEY_TIMEOUT);
+        Timeouts.initDefault("TextFieldOperator.BetweenKeysTimeout", BETWEEN_KEYS_TIMEOUT);
+        Timeouts.initDefault("TextFieldOperator.ChangeCaretPositionTimeout", CHANGE_CARET_POSITION_TIMEOUT);
+        Timeouts.initDefault("TextFieldOperator.TypeTextTimeout", TYPE_TEXT_TIMEOUT);
     }
 
+    @Override
     public void setTimeouts(Timeouts timeouts) {
-	super.setTimeouts(timeouts);
-	this.timeouts = timeouts;
+        super.setTimeouts(timeouts);
+        this.timeouts = timeouts;
     }
 
+    @Override
     public Timeouts getTimeouts() {
-	return(timeouts);
+        return timeouts;
     }
 
+    @Override
     public void setOutput(TestOut out) {
-	output = out;
-	super.setOutput(output.createErrorOutput());
+        output = out;
+        super.setOutput(output.createErrorOutput());
     }
 
+    @Override
     public TestOut getOutput() {
-	return(output);
+        return output;
     }
 
-    public Hashtable getDump() {
-	Hashtable result = super.getDump();
-	result.put(TEXT_DPROP, ((TextField)getSource()).getText());
-	return(result);
+    @Override
+    public Hashtable<String, Object> getDump() {
+        Hashtable<String, Object> result = super.getDump();
+        result.put(TEXT_DPROP, ((TextField) getSource()).getText());
+        return result;
     }
 
     ////////////////////////////////////////////////////////
     //Mapping                                             //
-
-    /**Maps <code>TextField.addActionListener(ActionListener)</code> through queue*/
+    /**
+     * Maps {@code TextField.addActionListener(ActionListener)} through queue
+     */
     public void addActionListener(final ActionListener actionListener) {
-	runMapping(new MapVoidAction("addActionListener") {
-		public void map() {
-		    ((TextField)getSource()).addActionListener(actionListener);
-		}});}
+        runMapping(new MapVoidAction("addActionListener") {
+            @Override
+            public void map() {
+                ((TextField) getSource()).addActionListener(actionListener);
+            }
+        });
+    }
 
-    /**Maps <code>TextField.echoCharIsSet()</code> through queue*/
+    /**
+     * Maps {@code TextField.echoCharIsSet()} through queue
+     */
     public boolean echoCharIsSet() {
-	return(runMapping(new MapBooleanAction("echoCharIsSet") {
-		public boolean map() {
-		    return(((TextField)getSource()).echoCharIsSet());
-		}}));}
+        return (runMapping(new MapBooleanAction("echoCharIsSet") {
+            @Override
+            public boolean map() {
+                return ((TextField) getSource()).echoCharIsSet();
+            }
+        }));
+    }
 
-    /**Maps <code>TextField.getColumns()</code> through queue*/
+    /**
+     * Maps {@code TextField.getColumns()} through queue
+     */
     public int getColumns() {
-	return(runMapping(new MapIntegerAction("getColumns") {
-		public int map() {
-		    return(((TextField)getSource()).getColumns());
-		}}));}
+        return (runMapping(new MapIntegerAction("getColumns") {
+            @Override
+            public int map() {
+                return ((TextField) getSource()).getColumns();
+            }
+        }));
+    }
 
-    /**Maps <code>TextField.getEchoChar()</code> through queue*/
+    /**
+     * Maps {@code TextField.getEchoChar()} through queue
+     */
     public char getEchoChar() {
-	return(runMapping(new MapCharacterAction("getEchoChar") {
-		public char map() {
-		    return(((TextField)getSource()).getEchoChar());
-		}}));}
+        return (runMapping(new MapCharacterAction("getEchoChar") {
+            @Override
+            public char map() {
+                return ((TextField) getSource()).getEchoChar();
+            }
+        }));
+    }
 
-    /**Maps <code>TextField.getMinimumSize(int)</code> through queue*/
+    /**
+     * Maps {@code TextField.getMinimumSize(int)} through queue
+     */
     public Dimension getMinimumSize(final int i) {
-	return((Dimension)runMapping(new MapAction("getMinimumSize") {
-		public Object map() {
-		    return(((TextField)getSource()).getMinimumSize(i));
-		}}));}
+        return (runMapping(new MapAction<Dimension>("getMinimumSize") {
+            @Override
+            public Dimension map() {
+                return ((TextField) getSource()).getMinimumSize(i);
+            }
+        }));
+    }
 
-    /**Maps <code>TextField.getPreferredSize(int)</code> through queue*/
+    /**
+     * Maps {@code TextField.getPreferredSize(int)} through queue
+     */
     public Dimension getPreferredSize(final int i) {
-	return((Dimension)runMapping(new MapAction("getPreferredSize") {
-		public Object map() {
-		    return(((TextField)getSource()).getPreferredSize(i));
-		}}));}
+        return (runMapping(new MapAction<Dimension>("getPreferredSize") {
+            @Override
+            public Dimension map() {
+                return ((TextField) getSource()).getPreferredSize(i);
+            }
+        }));
+    }
 
-    /**Maps <code>TextField.removeActionListener(ActionListener)</code> through queue*/
+    /**
+     * Maps {@code TextField.removeActionListener(ActionListener)} through queue
+     */
     public void removeActionListener(final ActionListener actionListener) {
-	runMapping(new MapVoidAction("removeActionListener") {
-		public void map() {
-		    ((TextField)getSource()).removeActionListener(actionListener);
-		}});}
+        runMapping(new MapVoidAction("removeActionListener") {
+            @Override
+            public void map() {
+                ((TextField) getSource()).removeActionListener(actionListener);
+            }
+        });
+    }
 
-    /**Maps <code>TextField.setColumns(int)</code> through queue*/
+    /**
+     * Maps {@code TextField.setColumns(int)} through queue
+     */
     public void setColumns(final int i) {
-	runMapping(new MapVoidAction("setColumns") {
-		public void map() {
-		    ((TextField)getSource()).setColumns(i);
-		}});}
+        runMapping(new MapVoidAction("setColumns") {
+            @Override
+            public void map() {
+                ((TextField) getSource()).setColumns(i);
+            }
+        });
+    }
 
     //End of mapping                                      //
     ////////////////////////////////////////////////////////
-
     /**
      * Allows to find component by text.
      */
     public static class TextFieldByTextFinder implements ComponentChooser {
-	String label;
-	StringComparator comparator;
+
+        String label;
+        StringComparator comparator;
+
         /**
          * Constructs TextFieldByTextFinder.
+         *
          * @param lb a text pattern
          * @param comparator specifies string comparision algorithm.
          */
-	public TextFieldByTextFinder(String lb, StringComparator comparator) {
-	    label = lb;
-	    this.comparator = comparator;
-	}
+        public TextFieldByTextFinder(String lb, StringComparator comparator) {
+            label = lb;
+            this.comparator = comparator;
+        }
+
         /**
          * Constructs TextFieldByTextFinder.
+         *
          * @param lb a text pattern
          */
-	public TextFieldByTextFinder(String lb) {
+        public TextFieldByTextFinder(String lb) {
             this(lb, Operator.getDefaultStringComparator());
-	}
-	public boolean checkComponent(Component comp) {
-	    if(comp instanceof TextField) {
-		if(((TextField)comp).getText() != null) {
-		    return(comparator.equals(((TextField)comp).getText(),
-					     label));
-		}
-	    }
-	    return(false);
-	}
-	public String getDescription() {
-	    return("TextField with text \"" + label + "\"");
-	}
+        }
+
+        @Override
+        public boolean checkComponent(Component comp) {
+            if (comp instanceof TextField) {
+                if (((TextField) comp).getText() != null) {
+                    return (comparator.equals(((TextField) comp).getText(),
+                            label));
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public String getDescription() {
+            return "TextField with text \"" + label + "\"";
+        }
+
+        @Override
+        public String toString() {
+            return "TextFieldByTextFinder{" + "label=" + label + ", comparator=" + comparator + '}';
+        }
     }
 
     /**
      * Checks component type.
      */
     public static class TextFieldFinder extends Finder {
+
         /**
          * Constructs TextFieldFinder.
+         *
          * @param sf other searching criteria.
          */
-	public TextFieldFinder(ComponentChooser sf) {
-            super(Java5Compat.init(TextField.class), sf);
-	}
+        public TextFieldFinder(ComponentChooser sf) {
+            super(TextField.class, sf);
+        }
+
         /**
          * Constructs TextFieldFinder.
          */
-	public TextFieldFinder() {
-            super(Java5Compat.init(TextField.class));
-	}
+        public TextFieldFinder() {
+            super(TextField.class);
+        }
     }
 }

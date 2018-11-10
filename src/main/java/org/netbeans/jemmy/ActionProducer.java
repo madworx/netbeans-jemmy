@@ -1,28 +1,30 @@
 /*
- * The contents of this file are subject to the terms of the Common Development
- * and Distribution License (the License). You may not use this file except in
- * compliance with the License.
+ * Copyright (c) 1997, 2016, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
- * or http://www.netbeans.org/cddl.txt.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
- * When distributing Covered Code, include this CDDL Header Notice in each file
- * and include the License file at http://www.netbeans.org/cddl.txt.
- * If applicable, add the following below the CDDL Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * The Original Software is the Jemmy library.
- * The Initial Developer of the Original Software is Alexandre Iline.
- * All Rights Reserved.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Contributor(s): Alexandre Iline.
- *
- * $Id: ActionProducer.java,v 1.5 2006/06/30 14:00:30 jtulach Exp $ $Revision: 1.5 $ $Date: 2006/06/30 14:00:30 $
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
-
 package org.netbeans.jemmy;
+
+import java.util.Optional;
 
 /**
  *
@@ -34,290 +36,302 @@ package org.netbeans.jemmy;
  * @see Action
  * @see Timeouts
  *
- * @author Alexandre Iline (alexandre.iline@sun.com)
+ * @author Alexandre Iline (alexandre.iline@oracle.com)
  */
-
-public class ActionProducer extends Thread
-    implements Action, Waitable, Timeoutable{
+public class ActionProducer<R, P> extends Thread
+        implements Action<R, P>, Waitable<Optional<R>, P>, Timeoutable {
 
     private final static long ACTION_TIMEOUT = 10000;
 
-    private Action action;
+    private Action<R, P> action;
     private boolean needWait = true;
-    private Object parameter;
+    private P parameter;
     private boolean finished;
-    private Object result = null;
+    private R result = null;
     private Timeouts timeouts;
-    private Waiter waiter;
+    private Waiter<Optional<R>, P> waiter;
     private TestOut output;
     private Throwable exception;
 
     /**
      * Creates a producer for an action.
+     *
      * @param a Action implementation.
      */
-    public ActionProducer(Action a) {
-	super();
-	waiter = new Waiter(this);
-	action = a;
-	setTimeouts(JemmyProperties.getProperties().getTimeouts());
-	setOutput(JemmyProperties.getProperties().getOutput());
-	finished = false;
+    public ActionProducer(Action<R, P> a) {
+        super();
+        waiter = new Waiter<>(this);
+        action = a;
+        setTimeouts(JemmyProperties.getProperties().getTimeouts());
+        setOutput(JemmyProperties.getProperties().getOutput());
+        finished = false;
         exception = null;
     }
 
     /**
      * Creates a producer for an action.
+     *
      * @param a Action implementation.
-     * @param nw Defines if <code>produceAction</code> 
-     * method should wait for the end of action.
+     * @param nw Defines if {@code produceAction} method should wait for
+     * the end of action.
      */
-    public ActionProducer(Action a, boolean nw) {
-	super();
-	waiter = new Waiter(this);
-	action = a;
-	needWait = nw;
-	setTimeouts(JemmyProperties.getProperties().getTimeouts());
-	setOutput(JemmyProperties.getProperties().getOutput());
-	finished = false;
+    public ActionProducer(Action<R, P> a, boolean nw) {
+        super();
+        waiter = new Waiter<>(this);
+        action = a;
+        needWait = nw;
+        setTimeouts(JemmyProperties.getProperties().getTimeouts());
+        setOutput(JemmyProperties.getProperties().getOutput());
+        finished = false;
         exception = null;
     }
 
     /**
-     * Creates a producer.
-     * <code>produceAction</code> must be overridden.
+     * Creates a producer. {@code produceAction} must be overridden.
      */
     protected ActionProducer() {
-	super();
-	waiter = new Waiter(this);
-	setTimeouts(JemmyProperties.getProperties().getTimeouts());
-	setOutput(JemmyProperties.getProperties().getOutput());
-	finished = false;
+        super();
+        waiter = new Waiter<>(this);
+        setTimeouts(JemmyProperties.getProperties().getTimeouts());
+        setOutput(JemmyProperties.getProperties().getOutput());
+        finished = false;
         exception = null;
     }
 
     /**
-     * Creates a producer.
-     * <code>produceAction</code> must be overridden.
-     * @param nw Defines if <code>produceAction</code> 
-     * method should wait for the end of action.
+     * Creates a producer. {@code produceAction} must be overridden.
+     *
+     * @param nw Defines if {@code produceAction} method should wait for
+     * the end of action.
      */
     protected ActionProducer(boolean nw) {
-	super();
-	waiter = new Waiter(this);
-	needWait = nw;
-	setTimeouts(JemmyProperties.getProperties().getTimeouts());
-	setOutput(JemmyProperties.getProperties().getOutput());
-	finished = false;
+        super();
+        waiter = new Waiter<>(this);
+        needWait = nw;
+        setTimeouts(JemmyProperties.getProperties().getTimeouts());
+        setOutput(JemmyProperties.getProperties().getOutput());
+        finished = false;
         exception = null;
     }
 
     static {
-	Timeouts.initDefault("ActionProducer.MaxActionTime", ACTION_TIMEOUT);
+        Timeouts.initDefault("ActionProducer.MaxActionTime", ACTION_TIMEOUT);
     }
 
     /**
-     * Set all the time outs used by sleeps or waits used by the launched action.
+     * Set all the time outs used by sleeps or waits used by the launched
+     * action.
+     *
      * @param ts An object containing timeout information.
      * @see org.netbeans.jemmy.Timeouts
      * @see org.netbeans.jemmy.Timeoutable
      * @see #getTimeouts
      */
+    @Override
     public void setTimeouts(Timeouts ts) {
-	timeouts = ts;
+        timeouts = ts;
     }
 
     /**
-     * Get all the time outs used by sleeps or waits used by the launched action.
+     * Get all the time outs used by sleeps or waits used by the launched
+     * action.
+     *
      * @return an object containing information about timeouts.
      * @see org.netbeans.jemmy.Timeouts
      * @see org.netbeans.jemmy.Timeoutable
      * @see #setTimeouts
      */
+    @Override
     public Timeouts getTimeouts() {
-	return(timeouts);
+        return timeouts;
     }
 
     /**
      * Identity of the streams or writers used for print output.
-     * @param out  An object containing print output assignments for
-     * output and error streams.
+     *
+     * @param out An object containing print output assignments for output and
+     * error streams.
      * @see org.netbeans.jemmy.TestOut
      * @see org.netbeans.jemmy.Outputable
      */
     public void setOutput(TestOut out) {
-	output = out;
-	waiter.setOutput(output);
-    }
-
-    /**                            
-     * Returns the exception value.
-     * @return a Throwable object representing the exception value
-     */    
-    public Throwable getException() {
-        return(exception);
+        output = out;
+        waiter.setOutput(output);
     }
 
     /**
-     * Defines action priority in terms of thread priority.
-     * Increase (decrease) parameter value to Thread.MIN_PRIORITY(MAX_PRIORITY)
-     * in case if it is less(more) then it.
-     * 
-     * @param	newPriority New thread priority.
+     * Returns the exception value.
+     *
+     * @return a Throwable object representing the exception value
+     */
+    public Throwable getException() {
+        return exception;
+    }
+
+    /**
+     * Defines action priority in terms of thread priority. Increase (decrease)
+     * parameter value to Thread.MIN_PRIORITY(MAX_PRIORITY) in case if it is
+     * less(more) then it.
+     *
+     * @param newPriority New thread priority.
      */
     public void setActionPriority(int newPriority) {
-	int priority;
-	if(newPriority < Thread.MIN_PRIORITY) {
-	    priority = MIN_PRIORITY;
-	} else if(newPriority > Thread.MAX_PRIORITY) {
-	    priority = MAX_PRIORITY;
-	} else {
-	    priority = newPriority;
-	}
-	try {
-	    setPriority(priority);
-	} catch(IllegalArgumentException e) {
-	} catch(SecurityException e) {
-	}
+        int priority;
+        if (newPriority < Thread.MIN_PRIORITY) {
+            priority = MIN_PRIORITY;
+        } else if (newPriority > Thread.MAX_PRIORITY) {
+            priority = MAX_PRIORITY;
+        } else {
+            priority = newPriority;
+        }
+        try {
+            setPriority(priority);
+        } catch (IllegalArgumentException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Get the result of a launched action.
-     * @return a launched action's result.
-     * without waiting in case if <code>getFinished()</code>
+     *
+     * @return a launched action's result. without waiting in case if
+     * {@code getFinished()}
      * @see #getFinished()
      */
-    public Object getResult() {
-	return(result);
+    public R getResult() {
+        return result;
     }
 
-    /** 
+    /**
      * Check if a launched action has finished.
-     * @return <code>true</code> if the launched action has completed,
-     * either normally or with an exception;  <code>false</code> otherwise.
+     *
+     * @return {@code true} if the launched action has completed, either
+     * normally or with an exception;  {@code false} otherwise.
      */
     public boolean getFinished() {
-	synchronized(this) {
-	    return(finished);
-	}
+        synchronized (this) {
+            return finished;
+        }
     }
 
     /**
      * Does nothing; the method should be overridden by inheritors.
-     * @param obj An object used to modify execution.  This might be a
-     * <code>java.lang.String[]</code> that lists a test's command line
+     *
+     * @param obj An object used to modify execution. This might be a
+     * {@code java.lang.String[]} that lists a test's command line
      * arguments.
      * @return An object - result of the action.
      * @see org.netbeans.jemmy.Action
      */
-    public Object launch(Object obj) {
-	return(null);
+    @Override
+    public R launch(P obj) {
+        return null;
     }
 
     /**
-     * @return this <code>ActionProducer</code>'s description.
+     * @return this {@code ActionProducer}'s description.
      * @see Action
      */
+    @Override
     public String getDescription() {
-	if(action != null) {
-	    return(action.getDescription());
-	} else {
-	    return("Unknown action");
-	}
+        if (action != null) {
+            return action.getDescription();
+        } else {
+            return "Unknown action";
+        }
     }
 
     /**
-     * Starts execution.
-     * Uses ActionProducer.MaxActionTime timeout.
-     * 
-     * @param	obj Parameter to be passed into action's <code>launch(Object)</code> method.
-     * This parameter might be a <code>java.lang.String[]</code> that lists a test's
-     * command line arguments.
-     * @return	<code>launch(Object)</code> result.
-     * @throws	TimeoutExpiredException
-     * @exception	InterruptedException
+     * Starts execution. Uses ActionProducer.MaxActionTime timeout.
+     *
+     * @param obj Parameter to be passed into action's
+     * {@code launch(Object)} method. This parameter might be a
+     * {@code java.lang.String[]} that lists a test's command line
+     * arguments.
+     * @param actionTimeOrigin is used for timeout reporting, if non-null.
+     * @return        {@code launch(Object)} result.
+     * @throws TimeoutExpiredException
+     * @exception InterruptedException
      */
-    public Object produceAction(Object obj) throws InterruptedException{
-	parameter =obj;
-	synchronized(this) {
-	    finished = false;
-	}
-	start();
-	if(needWait) {
-	    Timeouts times = timeouts.cloneThis();
-	    times.setTimeout("Waiter.WaitingTime", 
-			     timeouts.getTimeout("ActionProducer.MaxActionTime"));
-	    waiter.setTimeouts(times);
-	    try {
-		waiter.waitAction(null);
-	    } catch(TimeoutExpiredException e) {
-		output.printError("Timeout for \"" + getDescription() + 
-				  "\" action has been expired. Thread has been interrupted.");
-		interrupt();
-		throw(e);
-	    }
-	}
-	return(result);
+    public R produceAction(P obj, String actionTimeOrigin) throws InterruptedException {
+        parameter = obj;
+        synchronized (this) {
+            finished = false;
+        }
+        start();
+        if (needWait) {
+            waiter.setTimeoutsToCloneOf(timeouts, "ActionProducer.MaxActionTime", actionTimeOrigin);
+            try {
+                waiter.waitAction(null);
+            } catch (TimeoutExpiredException e) {
+                output.printError("Timeout for \"" + getDescription()
+                        + "\" action has been expired. Thread has been interrupted.");
+                interrupt();
+                throw (e);
+            }
+        }
+        return result;
     }
 
     /**
-     * Launch an action in a separate thread of execution.
-     * When the action finishes, record that fact.  If the action finishes
-     * normally, store it's result.  Use <code>getFinished()</code>
-     * and <code>getResult</code> to answer questions about test
-     * completion and return value, respectively.
+     * Launch an action in a separate thread of execution. When the action
+     * finishes, record that fact. If the action finishes normally, store it's
+     * result. Use {@code getFinished()} and {@code getResult} to
+     * answer questions about test completion and return value, respectively.
+     *
      * @see #getFinished()
      * @see #getResult()
      * @see java.lang.Runnable
      */
+    @Override
     public final void run() {
-	result = null;
-	try {
-	    result = launchAction(parameter);
-	} catch(Throwable e) {
+        result = null;
+        try {
+            result = launchAction(parameter);
+        } catch (Throwable e) {
             exception = e;
-	}
-	synchronized(this) {
-	    finished = true;
-	}
+        }
+        synchronized (this) {
+            finished = true;
+        }
     }
 
     /**
      * Inquire for a reference to the object returned by a launched action.
+     *
      * @param obj Not used.
-     * @return the result returned when a launched action finishes
-     * normally.
+     * @return the result returned when a launched action finishes normally.
      * @see org.netbeans.jemmy.Waitable
      */
-    public final Object actionProduced(Object obj) {
-	synchronized(this) {
-	    if(finished) {
-		if(result == null) {
-		    return(new Integer(0));
-		} else {
-		    return(result);
-		}
-	    } else {
-		return(null);
-	    }
-	}
+    @Override
+    public final Optional<R> actionProduced(P obj) {
+        synchronized (this) {
+            if (finished) {
+                return Optional.ofNullable(result);
+            } else {
+                return null;
+            }
+        }
     }
+
     /**
-     * Launch some action.
-     * Pass the action parameters and get it's return value, too.
-     * @param obj Parameter used to configure the execution of whatever
-     * this <code>ActionProducer</code> puts into execution.
-     * This parameter might be a <code>java.lang.String[]</code> that lists a
-     * test's command line arguments.
-     * @return the return value of the action.  This might be a
-     * <code>java.lang.Integer</code> wrapped around a status code.
+     * Launch some action. Pass the action parameters and get it's return value,
+     * too.
+     *
+     * @param obj Parameter used to configure the execution of whatever this
+     * {@code ActionProducer} puts into execution.
+     * @return the return value of the action.
      */
-    private Object launchAction(Object obj) {
-	if(action != null) {
-	    return(action.launch(obj));
-	} else {
-	    return(launch(obj));
-	}
+    private R launchAction(P obj) {
+        if (action != null) {
+            return action.launch(obj);
+        } else {
+            return launch(obj);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "ActionProducer{" + "action=" + action + ", needWait=" + needWait + ", parameter=" + parameter + ", finished=" + finished + ", result=" + result + ", exception=" + exception + '}';
     }
 }
-

@@ -1,40 +1,39 @@
 /*
- * The contents of this file are subject to the terms of the Common Development
- * and Distribution License (the License). You may not use this file except in
- * compliance with the License.
+ * Copyright (c) 1997, 2016, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
- * or http://www.netbeans.org/cddl.txt.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
- * When distributing Covered Code, include this CDDL Header Notice in each file
- * and include the License file at http://www.netbeans.org/cddl.txt.
- * If applicable, add the following below the CDDL Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * The Original Software is the Jemmy library.
- * The Initial Developer of the Original Software is Alexandre Iline.
- * All Rights Reserved.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Contributor(s): Alexandre Iline.
- *
- * $Id: FileImageComparator.java,v 1.3 2006/06/30 14:00:42 jtulach Exp $ $Revision: 1.3 $ $Date: 2006/06/30 14:00:42 $
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
-
 package org.netbeans.jemmy.image;
 
 import java.awt.image.BufferedImage;
-
 import java.io.IOException;
 
 import org.netbeans.jemmy.JemmyException;
 
 /**
- * Allowes compares images in memory to ones stored in files
- * and compare such images one with another.
+ * Allowes compares images in memory to ones stored in files and compare such
+ * images one with another.
  *
- * @author Alexandre Iline (alexandre.iline@sun.com)
+ * @author Alexandre Iline (alexandre.iline@oracle.com)
  */
 public class FileImageComparator {
 
@@ -43,6 +42,7 @@ public class FileImageComparator {
 
     /**
      * Constructs a FileImageComparator object.
+     *
      * @param comparator - ImageComparator to be used for image comparision.
      * @param loader - ImageLoader to be used for image loading.
      */
@@ -52,35 +52,37 @@ public class FileImageComparator {
     }
 
     /**
-     * Compares an image with one stored in file.
-     * Comparision is performed by ImageComparator passed into constructor.
-     * Image is loaded by ImageLoader passed into constructor.
+     * Compares an image with one stored in file. Comparision is performed by
+     * ImageComparator passed into constructor. Image is loaded by ImageLoader
+     * passed into constructor.
+     *
      * @param image an image to compare.
      * @param fileName a file containing an image to compare.
      * @return true if images match each other.
      */
     public boolean compare(BufferedImage image, String fileName) {
         try {
-            return(comparator.compare(image, loader.load(fileName)));
-        } catch(IOException e) {
-            throw(new JemmyException("IOException during image loading", e));
+            return comparator.compare(image, loader.load(fileName));
+        } catch (IOException e) {
+            throw (new JemmyException("IOException during image loading", e));
         }
     }
 
     /**
-     * Compares two image stored in files..
-     * Comparision is performed by ImageComparator passed into constructor.
-     * Images are loaded by ImageLoader passed into constructor.
+     * Compares two image stored in files.. Comparision is performed by
+     * ImageComparator passed into constructor. Images are loaded by ImageLoader
+     * passed into constructor.
+     *
      * @param fileName1 a file containing an image to compare.
      * @param fileName2 a file containing an image to compare.
      * @return true if images match each other.
      */
     public boolean compare(String fileName1, String fileName2) {
         try {
-            return(comparator.compare(loader.load(fileName1), 
-                                      loader.load(fileName2)));
-        } catch(IOException e) {
-            throw(new JemmyException("IOException during image loading", e));
+            return (comparator.compare(loader.load(fileName1),
+                    loader.load(fileName2)));
+        } catch (IOException e) {
+            throw (new JemmyException("IOException during image loading", e));
         }
     }
 }

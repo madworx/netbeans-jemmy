@@ -1,27 +1,27 @@
 /*
- * The contents of this file are subject to the terms of the Common Development
- * and Distribution License (the License). You may not use this file except in
- * compliance with the License.
+ * Copyright (c) 1997, 2016, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
- * or http://www.netbeans.org/cddl.txt.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
- * When distributing Covered Code, include this CDDL Header Notice in each file
- * and include the License file at http://www.netbeans.org/cddl.txt.
- * If applicable, add the following below the CDDL Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * The Original Software is the Jemmy library.
- * The Initial Developer of the Original Software is Alexandre Iline.
- * All Rights Reserved.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Contributor(s): Alexandre Iline.
- *
- * $Id: AccessibleDescriptionChooser.java,v 1.2 2006/06/30 14:00:33 jtulach Exp $ $Revision: 1.2 $ $Date: 2006/06/30 14:00:33 $
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
-
 package org.netbeans.jemmy.accessibility;
 
 import javax.accessibility.AccessibleContext;
@@ -30,19 +30,31 @@ import org.netbeans.jemmy.operators.Operator;
 import org.netbeans.jemmy.operators.Operator.StringComparator;
 
 public class AccessibleDescriptionChooser extends AccessibilityChooser {
-    String description;
-    StringComparator comparator;
+
+    private final String description;
+    private final StringComparator comparator;
+
     public AccessibleDescriptionChooser(String description, StringComparator comparator) {
         this.description = description;
         this.comparator = comparator;
     }
+
     public AccessibleDescriptionChooser(String description) {
         this(description, Operator.getDefaultStringComparator());
     }
+
+    @Override
     public final boolean checkContext(AccessibleContext context) {
-        return(comparator.equals(context.getAccessibleDescription(), description));
+        return comparator.equals(context.getAccessibleDescription(), description);
     }
+
+    @Override
     public String getDescription() {
-        return("JComponent with \"" + description + "\" accessible description");
+        return "JComponent with \"" + description + "\" accessible description";
+    }
+
+    @Override
+    public String toString() {
+        return "AccessibleDescriptionChooser{" + "description=" + description + ", comparator=" + comparator + '}';
     }
 }
