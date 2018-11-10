@@ -25,7 +25,6 @@
 package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 
@@ -176,15 +175,16 @@ public class JCheckBoxMenuItemOperator extends JMenuItemOperator {
 	public JCheckBoxMenuItemByLabelFinder(String lb) {
             this(lb, Operator.getDefaultStringComparator());
 	}
-	public boolean checkComponent(Component comp) {
-	    if(comp instanceof JCheckBoxMenuItem) {
-		if(((JCheckBoxMenuItem)comp).getText() != null) {
-		    return(comparator.equals(((JCheckBoxMenuItem)comp).getText(),
-					     label));
-		}
-	    }
-	    return(false);
-	}
+
+       public boolean checkComponent(Component comp) {
+          if(comp instanceof JCheckBoxMenuItem &&
+             ((JCheckBoxMenuItem)comp).getText() != null ) {
+             return(comparator.equals(((JCheckBoxMenuItem)comp).getText(),
+                                      label));
+          } else 
+             return(false);
+       }
+       
 	public String getDescription() {
 	    return("JCheckBoxMenuItem with text \"" + label + "\"");
 	}

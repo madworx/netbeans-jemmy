@@ -24,13 +24,9 @@
 
 package org.netbeans.jemmy.operators;
 
-import org.netbeans.jemmy.Action;
-import org.netbeans.jemmy.ActionProducer;
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyException;
-import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeoutable;
@@ -39,9 +35,6 @@ import org.netbeans.jemmy.Timeouts;
 
 import java.awt.Component;
 import java.awt.Container;
-
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 import java.util.Hashtable;
 
@@ -311,6 +304,7 @@ public class JTextAreaOperator extends JTextComponentOperator
      * @param yesOrNo if page navigation keys need to be used.
      * @deprecated All text operations are performed by TextDriver regitered for this operator type.
      */
+   @Deprecated
     public void usePageNavigationKeys(boolean yesOrNo) {
 	pageNavigation = yesOrNo;
     }
@@ -411,7 +405,8 @@ public class JTextAreaOperator extends JTextComponentOperator
     /**
      * Returns information about component.
      */
-    public Hashtable getDump() {
+   @Override
+   public Hashtable getDump() {
 	Hashtable result = super.getDump();
 	result.put(COLUMN_COUNT_DPROP, Integer.toString(((JTextArea)getSource()).getRows()));
 	result.put(ROW_COUNT_DPROP, Integer.toString(((JTextArea)getSource()).getColumns()));

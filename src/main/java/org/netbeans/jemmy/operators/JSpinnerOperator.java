@@ -79,7 +79,8 @@ public class JSpinnerOperator extends JComponentOperator
      */
     public static final String VALUE_DPROP = "Value";
 
-    private final static long WHOLE_SCROLL_TIMEOUT = 60000;
+    private static final long WHOLE_SCROLL_TIMEOUT = 60000;
+    private static final String WHOLE_SCROLL_TIMEOUT_NAME = "JSpinnerOperator.WholeScrollTimeout";
 
     private Timeouts timeouts;
     private TestOut output;
@@ -272,7 +273,7 @@ public class JSpinnerOperator extends JComponentOperator
     }
 
     static {
-	Timeouts.initDefault("JSpinnerOperator.WholeScrollTimeout", WHOLE_SCROLL_TIMEOUT);
+	Timeouts.initDefault(WHOLE_SCROLL_TIMEOUT_NAME, WHOLE_SCROLL_TIMEOUT);
     }
 
     public void setOutput(TestOut out) {
@@ -336,7 +337,7 @@ public class JSpinnerOperator extends JComponentOperator
 		public String getDescription() {
 		    return("Scrolling");
 		}
-	    }, getTimeouts().getTimeout("JSpinnerOperator.WholeScrollTimeout"));
+	    }, getTimeouts().getTimeout(WHOLE_SCROLL_TIMEOUT_NAME));
     }
 
     /**
@@ -352,7 +353,7 @@ public class JSpinnerOperator extends JComponentOperator
 		public String getDescription() {
 		    return("Scrolling");
 		}
-	    }, getTimeouts().getTimeout("JSpinnerOperator.WholeScrollTimeout"));
+	    }, getTimeouts().getTimeout(WHOLE_SCROLL_TIMEOUT_NAME));
     }
 
     /**
@@ -368,7 +369,7 @@ public class JSpinnerOperator extends JComponentOperator
 		public String getDescription() {
 		    return("Scrolling");
 		}
-	    }, getTimeouts().getTimeout("JSpinnerOperator.WholeScrollTimeout"));
+	    }, getTimeouts().getTimeout(WHOLE_SCROLL_TIMEOUT_NAME));
     }
 
     /**
@@ -472,6 +473,7 @@ public class JSpinnerOperator extends JComponentOperator
         }
     }
 
+   @Override
     public Hashtable getDump() {
 	Hashtable result = super.getDump();
 	result.put(VALUE_DPROP, ((JSpinner)getSource()).getValue().toString());
@@ -483,7 +485,7 @@ public class JSpinnerOperator extends JComponentOperator
 
     /**Maps <code>JSpinner.getValue()</code> through queue*/
     public Object getValue() {
-	return((Object)runMapping(new MapAction("getValue") {
+	return(runMapping(new MapAction("getValue") {
 		public Object map() {
 		    return(((JSpinner)getSource()).getValue());
 		}}));}

@@ -25,7 +25,6 @@
 package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyProperties;
 
@@ -162,13 +161,12 @@ public class JRadioButtonMenuItemOperator extends JMenuItemOperator {
             this(lb, Operator.getDefaultStringComparator());
 	}
 	public boolean checkComponent(Component comp) {
-	    if(comp instanceof JRadioButtonMenuItem) {
-		if(((JRadioButtonMenuItem)comp).getText() != null) {
-		    return(comparator.equals(((JRadioButtonMenuItem)comp).getText(),
-					     label));
-		}
-	    }
-	    return(false);
+      if(comp instanceof JRadioButtonMenuItem &&
+         ((JRadioButtonMenuItem)comp).getText() != null) {
+         return(comparator.equals(((JRadioButtonMenuItem)comp).getText(),
+                                  label));
+      } else
+         return(false);
 	}
 	public String getDescription() {
 	    return("JRadioButtonMenuItem with text \"" + label + "\"");

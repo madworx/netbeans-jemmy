@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>se.madworx</groupId>
+  <groupId>com.github.madworx</groupId>
   <artifactId>netbeans-jemmy</artifactId>
-  <version>v2.2.7.5mwx6</version>
+  <version>v2.2.7.5mwx7</version>
   <packaging>jar</packaging>
   
   <name>madworx Netbeans Jemmy library fork</name>

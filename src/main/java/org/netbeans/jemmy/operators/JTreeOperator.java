@@ -28,7 +28,6 @@ import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.JemmyInputException;
-import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.QueueTool;
 import org.netbeans.jemmy.TestOut;
@@ -50,8 +49,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Window;
 
-import java.awt.event.KeyEvent;
-
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -64,8 +61,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeWillExpandListener;
 
 import javax.swing.plaf.TreeUI;
-
-import javax.swing.text.JTextComponent;
 
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreeCellEditor;
@@ -122,13 +117,13 @@ public class JTreeOperator extends JComponentOperator
      */
     public static final String SELECTION_LAST_DPROP = "Last selected";
 
-    private final static long WAIT_NODE_EXPANDED_TIMEOUT = 60000;
-    private final static long WAIT_NODE_COLLAPSED_TIMEOUT = 60000;
-    private final static long WAIT_AFTER_NODE_EXPANDED_TIMEOUT = 0;
-    private final static long WAIT_NEXT_NODE_TIMEOUT = 60000;
-    private final static long WAIT_NODE_VISIBLE_TIMEOUT = 60000;
-    private final static long BEFORE_EDIT_TIMEOUT = 1000;
-    private final static long WAIT_EDITING_TIMEOUT = 60000;
+    private static final long WAIT_NODE_EXPANDED_TIMEOUT = 60000;
+    private static final long WAIT_NODE_COLLAPSED_TIMEOUT = 60000;
+    private static final long WAIT_AFTER_NODE_EXPANDED_TIMEOUT = 0;
+    private static final long WAIT_NEXT_NODE_TIMEOUT = 60000;
+    private static final long WAIT_NODE_VISIBLE_TIMEOUT = 60000;
+    private static final long BEFORE_EDIT_TIMEOUT = 1000;
+    private static final long WAIT_EDITING_TIMEOUT = 60000;
 
     private TestOut output;
     private Timeouts timeouts;

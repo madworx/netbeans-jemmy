@@ -26,20 +26,16 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.Action;
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
 import org.netbeans.jemmy.Timeoutable;
 import org.netbeans.jemmy.TimeoutExpiredException;
 import org.netbeans.jemmy.Timeouts;
-import org.netbeans.jemmy.Waitable;
-import org.netbeans.jemmy.Waiter;
 
 import org.netbeans.jemmy.drivers.MenuDriver;
 import org.netbeans.jemmy.drivers.DescriptablePathChooser;
 import org.netbeans.jemmy.drivers.DriverManager;
-import org.netbeans.jemmy.drivers.PathChooser;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -76,9 +72,9 @@ implements Outputable, Timeoutable{
      */
     public static final String SUBMENU_PREFIX_DPROP = "Submenu";
 
-    private final static long WAIT_POPUP_TIMEOUT = 60000;
-    private final static long WAIT_BEFORE_POPUP_TIMEOUT = 0;
-    private final static long PUSH_MENU_TIMEOUT = 60000;
+    private static final long WAIT_POPUP_TIMEOUT = 60000;
+    private static final long WAIT_BEFORE_POPUP_TIMEOUT = 0;
+    private static final long PUSH_MENU_TIMEOUT = 60000;
 
     private Timeouts timeouts;
     private TestOut output;
@@ -303,6 +299,7 @@ implements Outputable, Timeoutable{
 	return(output);
     }
 
+   @Override
     public void copyEnvironment(Operator anotherOperator) {
 	super.copyEnvironment(anotherOperator);
 	driver = DriverManager.getMenuDriver(this);
@@ -367,6 +364,7 @@ implements Outputable, Timeoutable{
      * @return Last pushed JMenuItem.
      * @deprecated Use pushMenu(String[]) or pushMenu(String[], StringComparator)
      */
+   @Deprecated
     public JMenuItem pushMenu(String[] names, boolean ce, boolean ccs) {
 	return(pushMenu(names, new DefaultStringComparator(ce, ccs)));
     }
@@ -388,6 +386,7 @@ implements Outputable, Timeoutable{
      * @see #pushMenu(String[], boolean,boolean)
      * @deprecated Use pushMenuNoBlock(String[]) or pushMenuNoBlock(String[], StringComparator)
      */
+   @Deprecated
     public void pushMenuNoBlock(String[] names, boolean ce, boolean ccs) {
 	pushMenuNoBlock(names, new DefaultStringComparator(ce, ccs));
     }
@@ -461,8 +460,7 @@ implements Outputable, Timeoutable{
      * @param comparator a string comparision algorithm
      */
     public void pushMenuNoBlock(String path, String delim, StringComparator comparator) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	pushMenuNoBlock(parseString(path, delim), comparator);
     }
 
@@ -473,8 +471,7 @@ implements Outputable, Timeoutable{
      * @param comparator a string comparision algorithm
      */
     public void pushMenuNoBlock(String path, StringComparator comparator) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	pushMenuNoBlock(parseString(path), comparator);
     }
 
@@ -501,8 +498,7 @@ implements Outputable, Timeoutable{
      * @throws TimeoutExpiredException
      */
     public JMenuItem pushMenu(String path, String delim) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	return(pushMenu(parseString(path, delim)));
     }
 
@@ -513,8 +509,7 @@ implements Outputable, Timeoutable{
      * @throws TimeoutExpiredException
      */
     public JMenuItem pushMenu(String path) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	return(pushMenu(parseString(path)));
     }
 
@@ -524,8 +519,7 @@ implements Outputable, Timeoutable{
      * @param delim String menupath divider ("/").
      */
     public void pushMenuNoBlock(String path, String delim) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	pushMenuNoBlock(parseString(path, delim));
     }
 
@@ -534,8 +528,7 @@ implements Outputable, Timeoutable{
      * @param path String menupath representation ("File/New", for example).
      */
     public void pushMenuNoBlock(String path) {
-	output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
-	output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+       outputPushInfo(path);
 	pushMenuNoBlock(parseString(path));
     }
 
@@ -985,4 +978,9 @@ implements Outputable, Timeoutable{
             super(Java5Compat.init(JMenu.class));
 	}
     }
+
+   private void outputPushInfo(String path) {
+      output.printLine("Pushing " + path + " menu in \n    " + toStringSource());
+      output.printGolden("Pushing " + path + " menu in \n    " + toStringSource());
+   }
 }

@@ -26,20 +26,17 @@ package org.netbeans.jemmy.operators;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.JTextPane;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Document;
-import javax.swing.text.Element;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyledDocument;
 
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 
 /**

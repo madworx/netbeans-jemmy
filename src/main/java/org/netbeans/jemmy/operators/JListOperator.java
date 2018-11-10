@@ -305,6 +305,7 @@ public class JListOperator extends JComponentOperator
 	return(output);
     }
 
+   @Override
     public void copyEnvironment(Operator anotherOperator) {
 	super.copyEnvironment(anotherOperator);
 	driver = 

@@ -26,7 +26,6 @@ package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.JemmyProperties;
 import org.netbeans.jemmy.Outputable;
 import org.netbeans.jemmy.TestOut;
@@ -42,7 +41,6 @@ import java.awt.event.MouseEvent;
 
 import java.util.Hashtable;
 
-import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
@@ -73,7 +71,7 @@ import org.netbeans.jemmy.util.EmptyVisualizer;
 public class JMenuItemOperator extends AbstractButtonOperator 
 implements Timeoutable, Outputable{
 
-    private final static long PUSH_MENU_TIMEOUT = 0;
+   private static final long PUSH_MENU_TIMEOUT = 0;
 
     private Timeouts timeouts;
     private TestOut output;
@@ -305,11 +303,13 @@ implements Timeoutable, Outputable{
     }
     
     /** Push this menu item. */
+   @Override
     public void push() {
         setVisualizer(new EmptyVisualizer());
         super.push();
     }
 
+   @Override
     /** Push this menu item and no block further execution. */
     public void pushNoBlock() {
         setVisualizer(new EmptyVisualizer());

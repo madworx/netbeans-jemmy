@@ -25,7 +25,6 @@
 package org.netbeans.jemmy.operators;
 
 import org.netbeans.jemmy.ComponentChooser;
-import org.netbeans.jemmy.ComponentSearcher;
 import org.netbeans.jemmy.Java5Compat;
 import org.netbeans.jemmy.TimeoutExpiredException;
 
@@ -259,10 +258,11 @@ public class JPasswordFieldOperator extends JTextFieldOperator{
 	return(waitJPasswordField(cont, text, ce, ccs, 0));
     }
 
+   @Override
     public Hashtable getDump() {
 	Hashtable result = super.getDump();
 	result.put(ECHO_CHAR_DPROP, 
-		   new Character(((JPasswordField)getSource()).getEchoChar()).toString());
+              Character.toString(((JPasswordField)getSource()).getEchoChar()));
 	return(result);
     }
 
