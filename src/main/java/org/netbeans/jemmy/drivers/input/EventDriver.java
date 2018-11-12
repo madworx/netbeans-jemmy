@@ -1,71 +1,62 @@
 /*
- * The contents of this file are subject to the terms of the Common Development
- * and Distribution License (the License). You may not use this file except in
- * compliance with the License.
+ * Copyright (c) 1997, 2016, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
- * or http://www.netbeans.org/cddl.txt.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
- * When distributing Covered Code, include this CDDL Header Notice in each file
- * and include the License file at http://www.netbeans.org/cddl.txt.
- * If applicable, add the following below the CDDL Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * The Original Software is the Jemmy library.
- * The Initial Developer of the Original Software is Alexandre Iline.
- * All Rights Reserved.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Contributor(s): Alexandre Iline.
- *
- * $Id: EventDriver.java,v 1.11 2006/07/20 03:07:32 mriem Exp $ $Revision: 1.11 $ $Date: 2006/07/20 03:07:32 $
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
-
 package org.netbeans.jemmy.drivers.input;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
 
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-
 import org.netbeans.jemmy.ComponentIsNotVisibleException;
-import org.netbeans.jemmy.JemmyException;
 import org.netbeans.jemmy.QueueTool;
-import org.netbeans.jemmy.Timeout;
-
-import org.netbeans.jemmy.drivers.KeyDriver;
 import org.netbeans.jemmy.drivers.LightSupportiveDriver;
 
-import org.netbeans.jemmy.operators.ComponentOperator;
-import org.netbeans.jemmy.operators.ContainerOperator;
-import org.netbeans.jemmy.operators.JComponentOperator;
 /**
  * Superclass for all drivers using event dispatching.
  *
- * @author Alexandre Iline(alexandre.iline@sun.com)
+ * @author Alexandre Iline(alexandre.iline@oracle.com)
  */
 public class EventDriver extends LightSupportiveDriver {
-    QueueTool queueTool;
 
     /**
      * Constructs an EventDriver object.
+     *
      * @param supported an array of supported class names
      */
     public EventDriver(String[] supported) {
-	super(supported);
-	queueTool = new QueueTool();
+        super(supported);
     }
+
     /**
      * Constructs an EventDriver object suporting ComponentOperator.
      */
     public EventDriver() {
-	this(new String[] {"org.netbeans.jemmy.operators.ComponentOperator"});
+        this(new String[]{"org.netbeans.jemmy.operators.ComponentOperator"});
     }
 
     /**
      * Dispatches an event to the component.
+     *
      * @param comp Component to dispatch events to.
      * @param event an event to dispatch.
      */
@@ -76,36 +67,40 @@ public class EventDriver extends LightSupportiveDriver {
 
     /**
      * Checks component visibility.
+     *
      * @param component a component.
      */
     protected void checkVisibility(Component component) {
-	if(!component.isVisible()) {
-	    throw(new ComponentIsNotVisibleException(component));
-	}
+        if (!component.isVisible()) {
+            throw (new ComponentIsNotVisibleException(component));
+        }
     }
 
     /**
      * Class used fot execution of an event through the dispatching thread.
      */
-    protected class Dispatcher extends QueueTool.QueueAction {
-	AWTEvent event;
-	Component component;
+    protected class Dispatcher extends QueueTool.QueueAction<Void> {
+
+        AWTEvent event;
+        Component component;
 
         /**
          * Constructs an EventDriver$Dispatcher object.
+         *
          * @param component a component to dispatch event to.
          * @param e an event to dispatch.
          */
-	public Dispatcher(Component component, AWTEvent e) {
-	    super(e.getClass().getName() + " event dispatching");
-	    this.component = component;
-	    event = e;
-	}
+        public Dispatcher(Component component, AWTEvent e) {
+            super(e.getClass().getName() + " event dispatching");
+            this.component = component;
+            event = e;
+        }
 
-	public Object launch() {
-	    checkVisibility(component);
-	    component.dispatchEvent(event);
-	    return(null);
-	}
+        @Override
+        public Void launch() {
+            checkVisibility(component);
+            component.dispatchEvent(event);
+            return null;
+        }
     }
 }
